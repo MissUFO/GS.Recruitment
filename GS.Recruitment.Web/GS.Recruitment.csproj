@@ -95,6 +95,15 @@
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GS.Recruitment.BusinessServices\GS.Recruitment.BusinessServices.csproj">
+      <Project>{AC5F3F17-A58B-452C-9801-CE85255E9623}</Project>
+      <Name>GS.Recruitment.BusinessServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
