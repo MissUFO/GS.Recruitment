@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.Repository", "GS.Recruitment.Repository\GS.Recruitment.Repository.csproj", "{50C07AF6-74DE-410B-8795-E1F17358CF20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.BusinessServices", "GS.Recruitment.BusinessServices\GS.Recruitment.BusinessServices.csproj", "{AC5F3F17-A58B-452C-9801-CE85255E9623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment", "GS.Recruitment.Web\GS.Recruitment.csproj", "{B300F5FD-2754-47D9-8E80-7B9D750AFD74}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50C07AF6-74DE-410B-8795-E1F17358CF20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C07AF6-74DE-410B-8795-E1F17358CF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C07AF6-74DE-410B-8795-E1F17358CF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C07AF6-74DE-410B-8795-E1F17358CF20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC5F3F17-A58B-452C-9801-CE85255E9623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC5F3F17-A58B-452C-9801-CE85255E9623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC5F3F17-A58B-452C-9801-CE85255E9623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC5F3F17-A58B-452C-9801-CE85255E9623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B300F5FD-2754-47D9-8E80-7B9D750AFD74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B300F5FD-2754-47D9-8E80-7B9D750AFD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B300F5FD-2754-47D9-8E80-7B9D750AFD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B300F5FD-2754-47D9-8E80-7B9D750AFD74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
