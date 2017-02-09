@@ -244,6 +244,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -255,6 +257,16 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GS.Recruitment.BusinessObjects\GS.Recruitment.BusinessObjects.csproj">
+      <Project>{f46e3c7e-3204-4917-a7fb-1995ea00f1c3}</Project>
+      <Name>GS.Recruitment.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GS.Recruitment.BusinessServices\GS.Recruitment.BusinessServices.csproj">
+      <Project>{ac5f3f17-a58b-452c-9801-ce85255e9623}</Project>
+      <Name>GS.Recruitment.BusinessServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

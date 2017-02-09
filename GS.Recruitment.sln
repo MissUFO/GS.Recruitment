@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.BusinessServ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.Web", "GS.Recruitment.Web\GS.Recruitment.Web.csproj", "{082AC465-5F43-49B9-80EA-F6239CC47E5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.BusinessObjects", "GS.Recruitment.BusinessObjects\GS.Recruitment.BusinessObjects.csproj", "{F46E3C7E-3204-4917-A7FB-1995EA00F1C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.Framework", "GS.Recruitment.Framework\GS.Recruitment.Framework.csproj", "{2F04C042-8B45-4E39-A0AB-0D4DAC0B4A46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{082AC465-5F43-49B9-80EA-F6239CC47E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{082AC465-5F43-49B9-80EA-F6239CC47E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{082AC465-5F43-49B9-80EA-F6239CC47E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F46E3C7E-3204-4917-A7FB-1995EA00F1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F46E3C7E-3204-4917-A7FB-1995EA00F1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F46E3C7E-3204-4917-A7FB-1995EA00F1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F46E3C7E-3204-4917-A7FB-1995EA00F1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F04C042-8B45-4E39-A0AB-0D4DAC0B4A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F04C042-8B45-4E39-A0AB-0D4DAC0B4A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F04C042-8B45-4E39-A0AB-0D4DAC0B4A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F04C042-8B45-4E39-A0AB-0D4DAC0B4A46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
