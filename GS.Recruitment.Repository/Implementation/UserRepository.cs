@@ -2,14 +2,13 @@
 using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
 
 namespace GS.Recruitment.Repository.Implementation
 {
-	public class UserRepository
+    public class UserRepository
 	{
 		public UserRepository()
 		{
@@ -24,8 +23,8 @@ namespace GS.Recruitment.Repository.Implementation
 
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_Get";
-                dataManager.Add("@UserID", SqlDbType.Int, ParameterDirection.Input, userID);
+                dataManager.ExecuteString = "auth.Users_Get";
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
                 dataManager.ExecuteReader();
                 XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
@@ -44,7 +43,7 @@ namespace GS.Recruitment.Repository.Implementation
 
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_Login";
+                dataManager.ExecuteString = "auth.Users_Login";
                 dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, login);
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, password);
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -62,8 +61,8 @@ namespace GS.Recruitment.Repository.Implementation
         {
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_ChangeStatus";
-                dataManager.Add("@UserID", SqlDbType.Int, ParameterDirection.Input, userID);
+                dataManager.ExecuteString = "auth.Users_ChangeStatus";
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
                 dataManager.Add("@StatusID", SqlDbType.Int, ParameterDirection.Input, statusID);
 
                 dataManager.ExecuteNonQuery();
@@ -77,31 +76,12 @@ namespace GS.Recruitment.Repository.Implementation
         {
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_ChangePassword";
-                dataManager.Add("@UserID", SqlDbType.Int, ParameterDirection.Input, userID);
+                dataManager.ExecuteString = "auth.Users_ChangePassword";
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, password);
 
                 dataManager.ExecuteNonQuery();
             }
-        }
-
-
-        /// <summary>
-        ///Pack XML
-        /// </summary>
-        private static XElement PackXml(User user)
-        {
-            return new XElement("");
-            //XElement element = new XElement("Users", from p in user.Provisioners
-            //                                         where p.ID != 0
-            //                                         select new XElement("User",
-            //                                              new XAttribute("UserID", user.UserID),
-            //                                              new XAttribute("ProvisionerID", p.ID),
-            //                                              new XAttribute("PermissionTypeID", (int)PermissionType.FullControl),
-            //                                              new XAttribute("IsActive", 1)
-            //                                              ));
-            //return element;
-
         }
 
         /// <summary>
@@ -110,18 +90,16 @@ namespace GS.Recruitment.Repository.Implementation
         /// <param name="user"></param>
         public static void UserAddEdit(User user)
         {
-            XElement xml = PackXml(user);
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_AddEdit";
-                dataManager.Add("@UserID", SqlDbType.Int, ParameterDirection.Input, user.UserID);
+                dataManager.ExecuteString = "auth.Users_AddEdit";
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserID);
                 dataManager.Add("@FirstName", SqlDbType.NVarChar, ParameterDirection.Input, user.FirstName);
                 dataManager.Add("@LastName", SqlDbType.NVarChar, ParameterDirection.Input, user.LastName);
                 dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, user.Login);
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, user.Password);
-                dataManager.Add("@StatusID", SqlDbType.Int, ParameterDirection.Input, (int)user.StatusID);
-                dataManager.Add("@RoleTypeID", SqlDbType.Int, ParameterDirection.Input, (user.Role != null && user.Role.Count > 0) ? (int)user.Role[0].RoleTypeID : (int)RoleType.Recruiter);
-                dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Input, xml);
+                dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.StatusID);
+                dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Role != null && user.Role.Count > 0) ? (int)user.Role[0].RoleTypeID : (int)RoleType.Recruiter);
                 dataManager.ExecuteNonQuery();
             }
         }
@@ -134,12 +112,11 @@ namespace GS.Recruitment.Repository.Implementation
 
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
-                dataManager.ExecuteString = "AUTH.User_List";
+                dataManager.ExecuteString = "auth.Users_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
                 dataManager.ExecuteReader();
                 XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
                 users.UnpackXML(xmlOut);
-
             }
 
             return users;
