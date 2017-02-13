@@ -1,59 +1,52 @@
-﻿using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using GS.Recruitment.Web.Models;
+using GS.Recruitment.BusinessServices.Implementation;
+using System.Web.Security;
+using System;
+using System.Linq;
+using Newtonsoft.Json;
+using GS.Recruitment.BusinessObjects.Enum;
+using GS.Recruitment.BusinessObjects.Implementation;
 
 namespace GS.Recruitment.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        private UserBusinessService UserSrvc = new UserBusinessService();
 
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+        //
+        // GET: /Account/index
+        [AllowAnonymous]
+        public ActionResult Index()
+        {   
+            return Login(string.Empty);
         }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
-        {
+        { 
             ViewBag.ReturnUrl = returnUrl;
+
+            if (Request.IsAuthenticated)
+            {
+                var principal = this.User as UserCustomPrincipal;
+                if (principal != null)
+                {
+                    if (principal.IsInRole(RoleType.Administrator))
+                        return RedirectToAction("Index", "AdminDashboard");
+                    else
+                        return RedirectToAction("Index", "RecruiterDashboard");
+                }
+            }
+
             return View();
         }
 
@@ -62,119 +55,72 @@ namespace GS.Recruitment.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            try
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                var user = UserSrvc.Login(model.Email, model.Password);
+
+                if (user != null)
+                {
+                    FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddDays(30), false, JsonConvert.SerializeObject(user), FormsAuthentication.FormsCookiePath);
+                    FormsAuthentication.SetAuthCookie(user.Name, false);
+
+                    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                    authCookie.Value = FormsAuthentication.Encrypt(ticket); ;
+                    Request.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, authCookie.Value));
+
+                    if(user.Roles.Count(itm => itm.RoleType == RoleType.Administrator) > 0)
+                        return RedirectToAction("Index", "AdminDashboard");
+                    else
+                        return RedirectToAction("Index", "RecruiterDashboard");
+                }
             }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+            }
+
+            return View(model);
         }
-       
-      
+
         //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // Get: /Account/LogOff
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            // Delete the user details from cache.
+            Session.Abandon();
+
+            // Delete the authentication ticket and sign out.
+            FormsAuthentication.SignOut();
+
+            // Clear authentication cookie.
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
+
             return RedirectToAction("Index", "Home");
         }
 
-        protected override void Dispose(bool disposing)
+        //
+        // GET: /Account/Edit
+        [AuthorizedUser]
+        public ActionResult Edit()
         {
-            if (disposing)
+            var model = new User();
+            var principal = this.User as UserCustomPrincipal;
+            if (principal != null)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
+                model = UserSrvc.Get(principal.UserId);
             }
 
-            base.Dispose(disposing);
+            return View(model);
         }
-
-        #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
-        }
-        #endregion
     }
 }

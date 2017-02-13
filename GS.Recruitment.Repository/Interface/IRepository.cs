@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GS.Recruitment.Repository.Interface
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
     }
 }

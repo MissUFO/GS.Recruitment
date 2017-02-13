@@ -17,29 +17,26 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     public class UserRole : Entity
     {
         [DataMember]
-        public int UserRoleID { get; set; }
+        public Guid RoleId { get; set; }
         [DataMember]
-        public int UserID { get; set; }
+        public Guid UserId { get; set; }
         [DataMember]
-        public RoleType RoleTypeID { get; set; }
+        public RoleType RoleType { get; set; }
         [DataMember]
         public DateTime CreatedOn { get; set; }
         [DataMember]
         public DateTime ModifiedOn { get; set; }
-        [DataMember]
-        public bool IsActive { get; set; }
 
         public UserRole() { }
 
         protected override void CreateObjectFromXml(XElement xml)
         {
-            this.UserRoleID = xml.Attribute("UserRoleID").ToType<int>();
-            this.ID = UserRoleID;
-            this.UserID = xml.Attribute("UserID").ToType<int>();
-            this.RoleTypeID = xml.Attribute("RoleTypeID").ToEnum<RoleType>();
+            this.RoleId = xml.Attribute("RoleId").ToType<Guid>();
+            this.Id = RoleId;
+            this.UserId = xml.Attribute("UserID").ToType<Guid>();
+            this.RoleType = xml.Attribute("RoleType").ToEnum<RoleType>();
             this.CreatedOn = xml.Attribute("CreatedOn").ToType<DateTime>();
             this.ModifiedOn = xml.Attribute("ModifiedOn").ToType<DateTime>();
-            this.IsActive = Convert.ToBoolean(xml.Attribute("IsActive").ToType<byte>());
         }
     }
 }

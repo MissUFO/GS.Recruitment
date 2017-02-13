@@ -14,7 +14,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     public class User : Entity
     {
         [DataMember]
-        public int UserID { get; set; }
+        public Guid UserId { get; set; }
         [DataMember]
         public string FirstName { get; set; }
         [DataMember]
@@ -34,11 +34,11 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         [DataMember]
         public DateTime ModifiedOn { get; set; }
         [DataMember]
-        public UserStatus StatusID { get; set; }
+        public UserStatus UserStatus { get; set; }
         [DataMember]
-        public List<UserRole> Role { get { return _role; } set { _role = value; } }
-        private List<UserRole> _role = new List<UserRole>();
-        
+        public List<UserRole> Roles { get { return _roles; } set { _roles = value; } }
+        private List<UserRole> _roles = new List<UserRole>();
+
         [DataMember]
         public bool IsActive { get; set; }
 
@@ -46,32 +46,32 @@ namespace GS.Recruitment.BusinessObjects.Implementation
 
         protected override void CreateObjectFromXml(XElement xml)
         {
-            this.ID = xml.Attribute("UserID").ToType<int>();
-            this.UserID = xml.Attribute("UserID").ToType<int>();
+            this.Id = xml.Attribute("Id").ToType<Guid>();
+            this.UserId = xml.Attribute("Id").ToType<Guid>();
             this.FirstName = xml.Attribute("FirstName").ToType<string>();
             this.LastName = xml.Attribute("LastName").ToType<string>();
-            this.Name = this.FirstName + " " + this.LastName;
             this.Login = xml.Attribute("Login").ToType<string>();
             this.Password = xml.Attribute("Password").ToType<string>();
+            this.Name = (string.IsNullOrEmpty(this.FirstName) == false || string.IsNullOrEmpty(this.LastName) == false) ? this.FirstName + " " + this.LastName : this.Login;
             this.LastLoginOn = xml.Attribute("LastLoginOn").ToType<DateTime>();
             this.LastPasswordChangedOn = xml.Attribute("LastPasswordChangedOn").ToType<DateTime>();
             this.FailedPasswordAttemptCount = xml.Attribute("FailedPasswordAttemptCount").ToType<int>();
             this.CreatedOn = xml.Attribute("CreatedOn").ToType<DateTime>();
             this.ModifiedOn = xml.Attribute("ModifiedOn").ToType<DateTime>();
-            this.StatusID = xml.Attribute("StatusID").ToEnum<UserStatus>();
+            this.UserStatus = xml.Attribute("UserStatus").ToEnum<UserStatus>();
 
-            this.IsActive = (this.StatusID == UserStatus.Active);
+            this.IsActive = (this.UserStatus == UserStatus.Active);
 
-            this.Role.UnpackXML<UserRole>(xml);
+            this.Roles.UnpackXML<UserRole>(xml);
         }
 
         public void AddRole(UserRole role)
         {
-            if (Role == null)
-                Role = new List<UserRole>();
+            if (Roles == null)
+                Roles = new List<UserRole>();
 
-            if (Role.Contains(role) == false)
-                Role.Add(role);
+            if (Roles.Contains(role) == false)
+                Roles.Add(role);
         }
 
     }

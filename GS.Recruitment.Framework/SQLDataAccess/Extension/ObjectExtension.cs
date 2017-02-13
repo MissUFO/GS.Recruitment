@@ -254,8 +254,15 @@ namespace GS.Recruitment.Framework.SQLDataAccess.Extensions
             {
                 return (T)(object)attribute.Value;
             }
-
-            if (typeof(T) == typeof(int) || typeof(T) == typeof(int?))
+            else if (typeof(T) == typeof(Guid))
+            {
+                Guid temp = Guid.Empty;
+                if (Guid.TryParse(attribute.Value, out temp))
+                {
+                    return (T)(object)temp;
+                }
+            }
+            else if (typeof(T) == typeof(int) || typeof(T) == typeof(int?))
             {
                 int temp;
                 if (int.TryParse(attribute.Value, out temp))

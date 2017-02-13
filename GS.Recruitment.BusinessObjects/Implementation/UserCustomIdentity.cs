@@ -26,7 +26,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
 
         public string Name
         {
-            get { return _User == null ? null : _User.Name; }
+            get { return _User == null ? "User Profile" : ((false == string.IsNullOrWhiteSpace(_User.Name)) ? _User.Name : _User.Login); }
         }
 
         public UserCustomIdentity(User userLogin)

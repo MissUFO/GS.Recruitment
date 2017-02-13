@@ -16,7 +16,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
             return UserRepository.List();
         }
 
-        public User Get(int id)
+        public User Get(Guid id)
         {
             return UserRepository.Get(id);
         }
@@ -31,14 +31,14 @@ namespace GS.Recruitment.BusinessServices.Implementation
             UserRepository.UserAddEdit(item);
         }
 
-        public void ChangeStatus(int userID, int statusID)
+        public void ChangeStatus(Guid id, int statusID)
         {
-            UserRepository.ChangeStatus(userID, statusID);
+            UserRepository.ChangeStatus(id, statusID);
         }
 
-        public void ChangePassword(int userID, string password)
+        public void ChangePassword(Guid id, string password)
         {
-            UserRepository.ChangePassword(userID, password);
+            UserRepository.ChangePassword(id, password);
         }
     }
 }

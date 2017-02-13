@@ -13,7 +13,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     public class Entity : IEntity
     {
         [DataMember]
-        public int ID { get; set; }
+        public Guid Id { get; set; }
         [DataMember]
         public string Name { get; set; }
 

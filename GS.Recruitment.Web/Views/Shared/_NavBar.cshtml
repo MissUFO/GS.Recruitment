@@ -1,4 +1,8 @@
-﻿<!-- navbar-->
+﻿@using Microsoft.AspNet.Identity
+@using GS.Recruitment.BusinessObjects.Enum
+@using GS.Recruitment.BusinessObjects.Implementation
+
+<!-- navbar-->
 <header class="header">
     <div class="sticky-wrapper">
         <div role="navigation" class="navbar navbar-default">
@@ -10,7 +14,24 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="#about">Home </a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li>@Html.Partial("_LoginPartial")</li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            if ((User as UserCustomPrincipal) != null)
+                            {
+                                if ((User as UserCustomPrincipal).IsInRole(RoleType.Administrator))
+                                {
+                                <li>
+                                    <a href="@Url.Action("Index", "AdminDashboard")">Dashboard</a>
+                                </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index","RecruiterDashboard")">Dashboard</a>
+                                    </li>
+                                }
+                            }
+                        }
                     </ul>
                 </div>
             </div>

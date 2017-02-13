@@ -1,0 +1,47 @@
+﻿@using GS.Recruitment.BusinessObjects.Enum
+@using GS.Recruitment.BusinessObjects.Implementation
+
+@if (Request.IsAuthenticated)
+{
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            @if ((User as UserCustomPrincipal) != null)
+            {
+                <ul class="nav" id="side-menu">
+
+                    @if ((User as UserCustomPrincipal).IsInRole(RoleType.Administrator))
+                    {
+
+                        <li>
+                            <a href="@Url.Action("Index", "AdminDashboard")"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "AdminUsers")"><i class="fa fa-table fa-fw"></i> Users</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "AdminDictionaries")"><i class="fa fa-edit fa-fw"></i> Dictionaries</a>
+                        </li>
+                    }
+
+                    @if ((User as UserCustomPrincipal).IsInRole(RoleType.Recruiter))
+                    {
+
+                        <li>
+                            <a href="@Url.Action("Index", "RecruiterDashboard")"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "RecruiterCandidates")"><i class="fa fa-table fa-fw"></i> Candidates</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "RecruiterTasks")"><i class="fa fa-sitemap fa-fw"></i> Tasks</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "RecruiterAssignments")"><i class="fa fa-files-o fa-fw"></i> Assignments</a>
+                        </li>
+                    }
+
+                </ul>
+            }
+        </div>
+    </div>
+}

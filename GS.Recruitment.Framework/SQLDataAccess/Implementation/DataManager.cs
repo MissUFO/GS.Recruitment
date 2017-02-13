@@ -245,7 +245,7 @@ namespace GS.Recruitment.Framework.SQLDataAccess
         {
             if (this.Contains("@ReturnValue"))
             {
-                if ((ReturnValue != 0) && (ReturnValue != -2147483648)) { throw new Exception(ReturnValue.ToString()); }
+                if (ReturnValue != 0) { throw new Exception(ReturnValue.ToString()); }
             }
         }
 

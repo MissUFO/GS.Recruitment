@@ -2,6 +2,7 @@
 using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
@@ -17,14 +18,14 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get User by userid
         /// </summary>
-        public static User Get(int userID)
+        public static User Get(Guid id)
         {
             User user = new User();
 
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_Get";
-                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
                 dataManager.ExecuteReader();
                 XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
@@ -57,13 +58,13 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Change user status
         /// </summary>
-        public static void ChangeStatus(int userID, int statusID)
+        public static void ChangeStatus(Guid id, int statusId)
         {
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangeStatus";
-                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
-                dataManager.Add("@StatusID", SqlDbType.Int, ParameterDirection.Input, statusID);
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
+                dataManager.Add("@StatusID", SqlDbType.Int, ParameterDirection.Input, statusId);
 
                 dataManager.ExecuteNonQuery();
             }
@@ -72,12 +73,12 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Change user status
         /// </summary>
-        public static void ChangePassword(int userID, string password)
+        public static void ChangePassword(Guid id, string password)
         {
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangePassword";
-                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userID);
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, password);
 
                 dataManager.ExecuteNonQuery();
@@ -93,13 +94,13 @@ namespace GS.Recruitment.Repository.Implementation
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_AddEdit";
-                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserID);
+                dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserId);
                 dataManager.Add("@FirstName", SqlDbType.NVarChar, ParameterDirection.Input, user.FirstName);
                 dataManager.Add("@LastName", SqlDbType.NVarChar, ParameterDirection.Input, user.LastName);
                 dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, user.Login);
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, user.Password);
-                dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.StatusID);
-                dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Role != null && user.Role.Count > 0) ? (int)user.Role[0].RoleTypeID : (int)RoleType.Recruiter);
+                dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.UserStatus);
+                dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Roles != null && user.Roles.Count > 0) ? (int)user.Roles[0].RoleType : (int)RoleType.Recruiter);
                 dataManager.ExecuteNonQuery();
             }
         }

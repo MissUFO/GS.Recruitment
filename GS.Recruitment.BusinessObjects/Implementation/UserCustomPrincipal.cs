@@ -1,4 +1,5 @@
 ﻿using GS.Recruitment.BusinessObjects.Enum;
+using System;
 using System.Linq;
 using System.Security.Principal;
 
@@ -16,22 +17,22 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         }
         IIdentity identity;
 
-        public int UserID
+        public Guid UserId
         {
             get
             {
-                if (userID == 0)
+                if (userId == Guid.Empty)
                 {
                     UserCustomIdentity _identity = Identity as UserCustomIdentity;
                     if (_identity != null && _identity.User != null)
-                        userID = _identity.User.UserID;
+                        userId = _identity.User.UserId;
                 }
 
-                return userID;
+                return userId;
             }
-            set { userID = value; }
+            set { userId = value; }
         }
-        private int userID = 0;
+        private Guid userId = Guid.Empty;
 
         public string Login
         {
@@ -54,7 +55,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         public bool IsInRole(RoleType role)
         {
             UserCustomIdentity _identity = Identity as UserCustomIdentity;
-            if (_identity != null && _identity.User != null && _identity.User.Role.Count(itm => itm.RoleTypeID == role) > 0)
+            if (_identity != null && _identity.User != null && _identity.User.Roles.Count(itm => itm.RoleType == role) > 0)
                 return true;
             else
                 return false;
