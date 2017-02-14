@@ -1,6 +1,9 @@
-﻿@{
+﻿@using GS.Recruitment.BusinessObjects.Implementation
+@using GS.Recruitment.BusinessObjects.Enum
+@model User
+@{
     Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
-    ViewBag.Title = "User Profile";
+    ViewBag.Title = Model.UserId==Guid.Empty ? "New User" : "User Profile";
 }
 
 <div class="row">
@@ -11,11 +14,74 @@
 </div>
 <!-- /.row -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Under construction.
+                Personal Info
             </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        @using (Html.BeginForm("AddEdit", "AdminUsers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(m => m.UserId)
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Login, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Roles, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.Roles, new SelectList(Enum.GetNames(typeof(RoleType)), Model.Roles.Count>0? Model.Roles[0].RoleType : RoleType.Recruiter), new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Roles, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserStatus, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.EnumDropDownListFor(m => m.UserStatus, new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.UserStatus, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> </label>
+                                <div class="col-md-10">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

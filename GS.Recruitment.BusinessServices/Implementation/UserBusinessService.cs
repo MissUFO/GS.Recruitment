@@ -26,19 +26,19 @@ namespace GS.Recruitment.BusinessServices.Implementation
             return UserRepository.Login(login, password);
         }
 
-        public void UserAddEdit(User item)
+        public bool AddEdit(User item)
         {
-            UserRepository.UserAddEdit(item);
+            return UserRepository.AddEdit(item);
         }
 
-        public void ChangeStatus(Guid id, int statusID)
+        public bool ChangeStatus(Guid id, int statusID)
         {
-            UserRepository.ChangeStatus(id, statusID);
+            return UserRepository.ChangeStatus(id, statusID);
         }
 
-        public void ChangePassword(Guid id, string password)
+        public bool ChangePassword(Guid id, string password)
         {
-            UserRepository.ChangePassword(id, password);
+            return UserRepository.ChangePassword(id, password);
         }
     }
 }

@@ -223,6 +223,7 @@
     <Content Include="Fonts\themify.woff" />
     <Content Include="Scripts\datatables-responsive\dataTables.responsive.scss" />
     <Content Include="Scripts\datatables\images\Sorting icons.psd" />
+    <Content Include="Fonts\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\controlpanel.js" />
     <Content Include="Scripts\datatables-plugins\dataTables.bootstrap.css" />

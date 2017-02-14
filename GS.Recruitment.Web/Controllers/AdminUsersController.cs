@@ -1,5 +1,7 @@
-﻿using GS.Recruitment.BusinessObjects.Implementation;
+﻿using GS.Recruitment.BusinessObjects.Enum;
+using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.BusinessServices.Implementation;
+using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +22,43 @@ namespace GS.Recruitment.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ViewItem()
+        [AuthorizedUser]
+        [HttpGet]
+        public ActionResult AddEdit(Guid? id)
         {
-            return View();
+            var user = new User();
+            if (id.HasValue)
+                user = UserSrvc.Get(id.Value);
+
+            ViewBag.RoleTypes = RoleTypesSelectListItems();
+
+            return View(user);
         }
 
-        public ActionResult AddEdit()
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult AddEdit(User user, string Roles)
         {
-            return View();
+            bool result = false;
+            try
+            {
+                user.AddRole(new UserRole() { RoleType = Roles.ToEnum<RoleType>(), UserId = user.Id });
+                result = UserSrvc.AddEdit(user);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Index");
+            else
+                return View(user);
+        }
+
+        private List<SelectListItem> RoleTypesSelectListItems()
+        {
+            return Enum.GetNames(typeof(RoleType)).Select(c => new SelectListItem() { Text = c, Value = c }).ToList();
         }
 
     }

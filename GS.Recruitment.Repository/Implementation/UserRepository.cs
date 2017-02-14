@@ -58,8 +58,10 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Change user status
         /// </summary>
-        public static void ChangeStatus(Guid id, int statusId)
+        public static bool ChangeStatus(Guid id, int statusId)
         {
+            bool result = false;
+
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangeStatus";
@@ -67,14 +69,20 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@StatusID", SqlDbType.Int, ParameterDirection.Input, statusId);
 
                 dataManager.ExecuteNonQuery();
+
+                result = true;
             }
+
+            return result;
         }
 
         /// <summary>
         /// Change user status
         /// </summary>
-        public static void ChangePassword(Guid id, string password)
+        public static bool ChangePassword(Guid id, string password)
         {
+            bool result = false;
+
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangePassword";
@@ -82,15 +90,20 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, password);
 
                 dataManager.ExecuteNonQuery();
+                result = true;
             }
+
+            return result;
         }
 
         /// <summary>
         /// AddEdit User
         /// </summary>
         /// <param name="user"></param>
-        public static void UserAddEdit(User user)
+        public static bool AddEdit(User user)
         {
+            bool result = false;
+
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_AddEdit";
@@ -102,7 +115,11 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.UserStatus);
                 dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Roles != null && user.Roles.Count > 0) ? (int)user.Roles[0].RoleType : (int)RoleType.Recruiter);
                 dataManager.ExecuteNonQuery();
+
+                result = true;
             }
+
+            return result;
         }
         /// <summary>
         /// Get Users list

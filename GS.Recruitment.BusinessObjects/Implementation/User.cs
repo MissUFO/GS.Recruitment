@@ -1,6 +1,7 @@
 ﻿using GS.Recruitment.BusinessObjects.Enum;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
@@ -38,7 +39,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         [DataMember]
         public List<UserRole> Roles { get { return _roles; } set { _roles = value; } }
         private List<UserRole> _roles = new List<UserRole>();
-
+       
         [DataMember]
         public bool IsActive { get; set; }
 
@@ -63,6 +64,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.IsActive = (this.UserStatus == UserStatus.Active);
 
             this.Roles.UnpackXML<UserRole>(xml);
+
         }
 
         public void AddRole(UserRole role)
@@ -70,7 +72,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             if (Roles == null)
                 Roles = new List<UserRole>();
 
-            if (Roles.Contains(role) == false)
+            if (Roles.Any( r => r.RoleType==role.RoleType ) == false)
                 Roles.Add(role);
         }
 
