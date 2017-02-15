@@ -10,24 +10,20 @@ using System.Xml.Linq;
 namespace GS.Recruitment.BusinessObjects.Implementation
 {
     /// <summary>
-    /// Recruiters tasks
+    /// Candidate email
     /// </summary>
     [DataContract]
-    public class Task : Entity
+    public class Email : Entity
     {
-        public string Title {get;set;}
-
-        public string UserFromLogin { get; set; }
-
-        public string UserToLogin { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime ModifiedOn { get; set; }
+        public Guid Id {get;set;}
+		public string EmailAddress{get;set;}
+		public bool IsPreferred{get;set;}
 
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
+            this.EmailAddress = xml.Attribute("Email").ToType<string>();
+            this.IsPreferred = xml.Attribute("IsPreferred").ToType<bool>();
         }
     }
 }

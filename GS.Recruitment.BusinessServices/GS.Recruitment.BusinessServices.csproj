@@ -34,7 +34,6 @@
     <Compile Include="Implementation\AssignmentBusinessService.cs" />
     <Compile Include="Implementation\ContactBusinessService.cs" />
     <Compile Include="Implementation\DictionaryBusinessService.cs" />
-    <Compile Include="Implementation\RoleBusinessService.cs" />
     <Compile Include="Implementation\TaskBusinessService.cs" />
     <Compile Include="Implementation\UserBusinessService.cs" />
     <Compile Include="Interface\IBusinessService.cs" />

@@ -325,6 +325,9 @@
     <Content Include="Views\AdminUsers\AddEdit.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\AdminDictionaries\Index.cshtml" />
+    <Content Include="Views\RecruiterCandidates\AddEdit.cshtml" />
+    <Content Include="Views\RecruiterTasks\AddEdit.cshtml" />
+    <Content Include="Views\RecruiterTasks\View.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

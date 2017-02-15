@@ -47,7 +47,15 @@
     <Compile Include="Enum\TaskStatus.cs" />
     <Compile Include="Enum\UserStatus.cs" />
     <Compile Include="Implementation\Assignment.cs" />
+    <Compile Include="Implementation\Attachment.cs" />
     <Compile Include="Implementation\Contact.cs" />
+    <Compile Include="Implementation\Education.cs" />
+    <Compile Include="Implementation\Experience.cs" />
+    <Compile Include="Implementation\JobPreference.cs" />
+    <Compile Include="Implementation\Phone.cs" />
+    <Compile Include="Implementation\Email.cs" />
+    <Compile Include="Implementation\Skill.cs" />
+    <Compile Include="Implementation\SocialNetwork.cs" />
     <Compile Include="Implementation\UserCustomIdentity.cs" />
     <Compile Include="Implementation\UserCustomPrincipal.cs" />
     <Compile Include="Implementation\Entity.cs" />
@@ -57,7 +65,6 @@
     <Compile Include="Interface\IAssignment.cs" />
     <Compile Include="Interface\IContact.cs" />
     <Compile Include="Interface\ITask.cs" />
-    <Compile Include="Interface\IUserRole.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

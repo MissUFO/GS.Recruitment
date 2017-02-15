@@ -5,14 +5,15 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
+using GS.Recruitment.BusinessObjects.Interface;
 
 namespace GS.Recruitment.BusinessObjects.Implementation
 {
     /// <summary>
-    /// User object
+    /// User object. Represents users in different roles
     /// </summary>
     [DataContract]
-    public class User : Entity
+    public class User : Entity, IUser
     {
         [DataMember]
         public Guid UserId { get; set; }
@@ -53,7 +54,9 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.LastName = xml.Attribute("LastName").ToType<string>();
             this.Login = xml.Attribute("Login").ToType<string>();
             this.Password = xml.Attribute("Password").ToType<string>();
+
             this.Name = (string.IsNullOrEmpty(this.FirstName) == false || string.IsNullOrEmpty(this.LastName) == false) ? this.FirstName + " " + this.LastName : this.Login;
+
             this.LastLoginOn = xml.Attribute("LastLoginOn").ToType<DateTime>();
             this.LastPasswordChangedOn = xml.Attribute("LastPasswordChangedOn").ToType<DateTime>();
             this.FailedPasswordAttemptCount = xml.Attribute("FailedPasswordAttemptCount").ToType<int>();

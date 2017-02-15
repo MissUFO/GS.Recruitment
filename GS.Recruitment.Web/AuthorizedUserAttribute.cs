@@ -33,10 +33,20 @@ namespace GS.Recruitment.Web
             var user = HttpContext.Current.User as UserCustomPrincipal;
             if (user != null)
             {
-                if (user.IsInRole(RoleType.Administrator) == false)
+                if (user.IsInRole(RoleType.Administrator))
                 {
                     if (false==HttpContext.Current.Request.Path.ToLower().Contains("/admin"))
                     {
+                        //not authorised to view the page
+                        filterContext.Result = new RedirectResult("~/");
+                        return;
+                    }
+                }
+                if (user.IsInRole(RoleType.Recruiter))
+                {
+                    if (false == HttpContext.Current.Request.Path.ToLower().Contains("/recruiter"))
+                    {
+                        //not authorised to view the page
                         filterContext.Result = new RedirectResult("~/");
                         return;
                     }

@@ -13,7 +13,7 @@ namespace GS.Recruitment.Web.Controllers
             return View();
         }
 
-        public ActionResult ViewItem()
+        public ActionResult View()
         {
             return View();
         }

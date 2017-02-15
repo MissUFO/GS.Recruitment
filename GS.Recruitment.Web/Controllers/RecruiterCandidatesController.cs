@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GS.Recruitment.BusinessObjects.Implementation;
+using GS.Recruitment.BusinessServices.Implementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,19 +10,45 @@ namespace GS.Recruitment.Web.Controllers
 {
     public class RecruiterCandidatesController : Controller
     {
+        private ContactBusinessService ContactSrvc = new ContactBusinessService();
+
+        [AuthorizedUser]
         public ActionResult Index()
         {
-            return View();
+            List<Contact> model = ContactSrvc.ListCandidates();
+
+            return View(model);
         }
 
-        public ActionResult ViewItem()
+        [AuthorizedUser]
+        [HttpGet]
+        public ActionResult AddEdit(Guid? id)
         {
-            return View();
+            var contact = new Contact();
+            if (id.HasValue)
+                contact = ContactSrvc.Get(id.Value);
+
+            return View(contact);
         }
 
-        public ActionResult AddEdit()
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult AddEdit(Contact contact, string Roles)
         {
-            return View();
+            bool result = false;
+            try
+            {
+                result = ContactSrvc.AddEdit(contact);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Index");
+            else
+                return View(contact);
         }
 
     }
