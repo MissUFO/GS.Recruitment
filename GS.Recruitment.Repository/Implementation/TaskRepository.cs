@@ -46,13 +46,17 @@ namespace GS.Recruitment.Repository.Implementation
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_AddEdit";
-                //dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserId);
-                //dataManager.Add("@FirstName", SqlDbType.NVarChar, ParameterDirection.Input, user.FirstName);
-                //dataManager.Add("@LastName", SqlDbType.NVarChar, ParameterDirection.Input, user.LastName);
-                //dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, user.Login);
-                //dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, user.Password);
-                //dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.UserStatus);
-                //dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Roles != null && user.Roles.Count > 0) ? (int)user.Roles[0].RoleType : (int)RoleType.Recruiter);
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.Id);
+                dataManager.Add("@Title", SqlDbType.NVarChar, ParameterDirection.Input, task.Title);
+                dataManager.Add("@Description", SqlDbType.NVarChar, ParameterDirection.Input, task.Description);
+                dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.UserFromId);
+                dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.UserToId);
+                dataManager.Add("@TaskStatus", SqlDbType.TinyInt, ParameterDirection.Input, (int)task.TaskStatus);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, task.CreatedOn);
+                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, task.ModifiedOn);
+                dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.CreatedBy);
+                dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.ModifiedBy);
+
                 dataManager.ExecuteNonQuery();
 
                 result = true;

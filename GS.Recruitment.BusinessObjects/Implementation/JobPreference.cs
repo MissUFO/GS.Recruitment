@@ -1,10 +1,6 @@
 ﻿using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace GS.Recruitment.BusinessObjects.Implementation
@@ -15,19 +11,33 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     [DataContract]
     public class JobPreference : Entity
     {
+        [DataMember]
         public Guid Id{ get; set; }
+        [DataMember]
         public decimal SalaryFrom{ get; set; }
+        [DataMember]
         public decimal SalaryTo{ get; set; }
+        [DataMember]
         public Guid JobTitleId{ get; set; }
+        [DataMember]
         public string JobTitle{ get; set; }
+        [DataMember]
         public Guid CityId{ get; set; }
+        [DataMember]
         public string CityName{ get; set; }
+        [DataMember]
         public string CountryName{ get; set; }
+        [DataMember]
         public Guid CountryId{ get; set; }
+        [DataMember]
         public bool IsReadyForRelocation{ get; set; }
+        [DataMember]
         public string Description{ get; set; }
+        [DataMember]
         public DateTime LastContactDate{ get; set; }
+        [DataMember]
         public Guid LastContactedBy{ get; set; }
+
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();

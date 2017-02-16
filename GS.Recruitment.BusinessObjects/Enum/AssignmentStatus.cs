@@ -6,7 +6,7 @@
     public enum AssignmentStatus : byte
     {
         New = 0,
-        InProg = 1,
+        InProcess = 1,
         Completed = 2,
         Closed = 3
     }

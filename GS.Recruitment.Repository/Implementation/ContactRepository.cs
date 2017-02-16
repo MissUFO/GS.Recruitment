@@ -45,13 +45,21 @@ namespace GS.Recruitment.Repository.Implementation
             using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "contact.Details_AddEdit";
-                //dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserId);
-                //dataManager.Add("@FirstName", SqlDbType.NVarChar, ParameterDirection.Input, user.FirstName);
-                //dataManager.Add("@LastName", SqlDbType.NVarChar, ParameterDirection.Input, user.LastName);
-                //dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, user.Login);
-                //dataManager.Add("@Password", SqlDbType.NVarChar, ParameterDirection.Input, user.Password);
-                //dataManager.Add("@UserStatus", SqlDbType.Int, ParameterDirection.Input, (int)user.UserStatus);
-                //dataManager.Add("@RoleType", SqlDbType.Int, ParameterDirection.Input, (user.Roles != null && user.Roles.Count > 0) ? (int)user.Roles[0].RoleType : (int)RoleType.Recruiter);
+                dataManager.Add("@ContactDetailId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.Id);
+                dataManager.Add("@FirstName", SqlDbType.NVarChar, ParameterDirection.Input, contact.FirstName);
+                dataManager.Add("@LastName", SqlDbType.NVarChar, ParameterDirection.Input, contact.LastName);
+                dataManager.Add("@MiddleName", SqlDbType.NVarChar, ParameterDirection.Input, contact.MiddleName);
+                dataManager.Add("@Address", SqlDbType.NVarChar, ParameterDirection.Input, contact.Address);
+                dataManager.Add("@PostCode", SqlDbType.NVarChar, ParameterDirection.Input, contact.PostCode);
+                dataManager.Add("@CityId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CityId);
+                dataManager.Add("@CountryId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CountryId);
+                dataManager.Add("@Birthday", SqlDbType.DateTime, ParameterDirection.Input, contact.Birthday);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.CreatedOn);
+                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.ModifiedOn);
+                dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CreatedBy);
+                dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.ModifiedBy);
+                dataManager.Add("@OutputId", SqlDbType.UniqueIdentifier, ParameterDirection.Output);
+
                 dataManager.ExecuteNonQuery();
 
                 result = true;

@@ -1,10 +1,6 @@
 ﻿using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace GS.Recruitment.BusinessObjects.Implementation
@@ -15,18 +11,31 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     [DataContract]
     public class Experience : Entity
     {
+        [DataMember]
         public Guid Id { get; set; }
+        [DataMember]
         public Guid CompanyId { get; set; }
+        [DataMember]
         public string CompanyName { get; set; }
+        [DataMember]
         public Guid JobTitleId { get; set; }
+        [DataMember]
         public string JobTitle { get; set; }
+        [DataMember]
         public string JobDescription { get; set; }
+        [DataMember]
         public Guid CityId { get; set; }
+        [DataMember]
         public string CityName { get; set; }
+        [DataMember]
         public DateTime DateFrom { get; set; }
+        [DataMember]
         public DateTime DateTo { get; set; }
+        [DataMember]
         public bool IsCurrent { get; set; }
+        [DataMember]
         public DateTime CreatedOn { get; set; }
+        [DataMember]
         public DateTime ModifiedOn { get; set; }
 
         protected override void CreateObjectFromXml(XElement xml)

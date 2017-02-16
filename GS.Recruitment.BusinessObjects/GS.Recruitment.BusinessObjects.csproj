@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\AssignmentContactStatus.cs" />
+    <Compile Include="Enum\NotificationEntityTypes.cs" />
     <Compile Include="Enum\RoleType.cs" />
     <Compile Include="Enum\AssignmentStatus.cs" />
+    <Compile Include="Enum\NotificationTypes.cs" />
     <Compile Include="Enum\TaskStatus.cs" />
     <Compile Include="Enum\UserStatus.cs" />
     <Compile Include="Implementation\Assignment.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Implementation\Email.cs" />
     <Compile Include="Implementation\Skill.cs" />
     <Compile Include="Implementation\SocialNetwork.cs" />
+    <Compile Include="Implementation\Notification.cs" />
     <Compile Include="Implementation\UserCustomIdentity.cs" />
     <Compile Include="Implementation\UserCustomPrincipal.cs" />
     <Compile Include="Implementation\Entity.cs" />

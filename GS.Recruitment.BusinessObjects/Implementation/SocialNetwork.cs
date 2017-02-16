@@ -1,10 +1,6 @@
 ﻿using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace GS.Recruitment.BusinessObjects.Implementation
@@ -15,11 +11,17 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     [DataContract]
     public class SocialNetwork : Entity
     {
+        [DataMember]
         public Guid Id { get; set; }
+        [DataMember]
         public string UserName { get; set; }
+        [DataMember]
         public string ProfileUrl { get; set; }
+        [DataMember]
         public int SocialNetworkType { get; set; }
+        [DataMember]
         public DateTime CreatedOn { get; set; }
+        [DataMember]
         public DateTime ModifiedOn { get; set; }
         protected override void CreateObjectFromXml(XElement xml)
         {

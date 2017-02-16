@@ -3,7 +3,7 @@
 @model Task
 @{
     Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
-    ViewBag.Title = Model.Id==Guid.Empty ? "New Task" : "Task";
+    ViewBag.Title = "Task";
 }
 
 <div class="row">
@@ -17,39 +17,27 @@
     <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Personal Info
+                Task details
             </div>
 
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        @using (Html.BeginForm("AddEdit", "RecruiterTasks", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(m => m.Id)
+                      @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
-                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-                                </div>
+                                    @Html.DisplayFor(m => m.Title, new { @class = "form-control", required = "required" })
+                               </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", required = "required" })
-                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                    @Html.DisplayFor(m => m.Description, new { @class = "form-control", required = "required" })
                                 </div>
                             </div>
-                            
+                           
 
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"> </label>
-                                <div class="col-md-10">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        }
                     </div>
                 </div>
             </div>

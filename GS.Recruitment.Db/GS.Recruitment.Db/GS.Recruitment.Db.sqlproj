@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>GS.Recruitment.Db</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{a5d60be9-fca3-4ad8-85f1-67fa492e7af1}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>GS.Recruitment.Db</RootNamespace>
+    <AssemblyName>GS.Recruitment.Db</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Tables\" />
+    <Folder Include="Stored Procedures\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Interviews.sql" />
+    <Build Include="Tables\Connections.sql" />
+    <Build Include="Tables\Educations.sql" />
+    <Build Include="Tables\Emails.sql" />
+    <Build Include="Tables\Phones.sql" />
+    <Build Include="Tables\Tasks.sql" />
+    <Build Include="Tables\Skills.sql" />
+    <Build Include="Tables\Assignments.sql" />
+    <Build Include="Tables\UserRoles.sql" />
+    <Build Include="Tables\Experiences.sql" />
+    <Build Include="Tables\AssignmentContacts.sql" />
+    <Build Include="Tables\SocialNetworks.sql" />
+    <Build Include="Tables\UserDetails.sql" />
+    <Build Include="Tables\Roles.sql" />
+    <Build Include="Tables\Cities.sql" />
+    <Build Include="Tables\JobTitles.sql" />
+    <Build Include="Tables\Attachments.sql" />
+    <Build Include="Tables\Industries.sql" />
+    <Build Include="Tables\Companies.sql" />
+    <Build Include="Tables\Countries.sql" />
+    <Build Include="Tables\Skills_1.sql" />
+    <Build Include="Tables\Users.sql" />
+    <Build Include="Tables\JobPreferences.sql" />
+    <Build Include="Tables\TaskAssignments.sql" />
+    <Build Include="Tables\Details.sql" />
+    <Build Include="Tables\Notifications.sql" />
+    <Build Include="Stored Procedures\Notifications_List.sql" />
+    <Build Include="Stored Procedures\Notifications_Get.sql" />
+    <Build Include="Stored Procedures\Notifications_AddEdit.sql" />
+    <Build Include="Stored Procedures\Tasks_AddEdit.sql" />
+    <Build Include="Stored Procedures\Assignments_AddEdit.sql" />
+    <Build Include="Stored Procedures\Assignments_Get.sql" />
+    <Build Include="Stored Procedures\Assignments_List_UserTo.sql" />
+    <Build Include="Stored Procedures\AssignmentContacts_AddEdit.sql" />
+    <Build Include="Stored Procedures\UserRoles_Get.sql" />
+    <Build Include="Stored Procedures\Users_Login.sql" />
+    <Build Include="Stored Procedures\Users_Get.sql" />
+    <Build Include="Stored Procedures\Users_List.sql" />
+    <Build Include="Stored Procedures\Users_ChangeStatus.sql" />
+    <Build Include="Stored Procedures\Users_ChangePassword.sql" />
+    <Build Include="Stored Procedures\Users_AddEdit.sql" />
+    <Build Include="Stored Procedures\Details_List.sql" />
+    <Build Include="Stored Procedures\Details_AddEdit.sql" />
+    <Build Include="Stored Procedures\UserRoles_AddEdit.sql" />
+    <Build Include="Stored Procedures\Details_Get.sql" />
+    <Build Include="Stored Procedures\Details_List_Candidates.sql" />
+    <Build Include="Stored Procedures\Tasks_List.sql" />
+    <Build Include="Stored Procedures\Tasks_Get.sql" />
+    <Build Include="Stored Procedures\Tasks_List_UserTo.sql" />
+    <Build Include="Stored Procedures\Tasks_List_UserFrom.sql" />
+    <Build Include="Security\auth.sql" />
+    <Build Include="Security\contact.sql" />
+    <Build Include="Security\enum.sql" />
+    <Build Include="Security\msg.sql" />
+    <Build Include="Security\process.sql" />
+    <Build Include="Security\workitem.sql" />
+  </ItemGroup>
+</Project>

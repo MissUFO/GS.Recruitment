@@ -328,6 +328,8 @@
     <Content Include="Views\RecruiterCandidates\AddEdit.cshtml" />
     <Content Include="Views\RecruiterTasks\AddEdit.cshtml" />
     <Content Include="Views\RecruiterTasks\View.cshtml" />
+    <Content Include="Views\RecruiterAssignments\View.cshtml" />
+    <Content Include="Views\RecruiterAssignments\AddEdit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

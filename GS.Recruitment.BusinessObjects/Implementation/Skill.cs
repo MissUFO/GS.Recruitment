@@ -11,11 +11,17 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     [DataContract]
     public class Skill : Entity
     {
+        [DataMember]
         public Guid Id { get; set; }
+        [DataMember]
         public Guid SkillId { get; set; }
+        [DataMember]
         public string SkillName { get; set; }
+        [DataMember]
         public DateTime CreatedOn { get; set; }
+        [DataMember]
         public DateTime ModifiedOn { get; set; }
+
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();

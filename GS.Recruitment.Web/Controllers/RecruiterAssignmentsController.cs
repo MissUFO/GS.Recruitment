@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GS.Recruitment.BusinessObjects.Implementation;
+using GS.Recruitment.BusinessServices.Implementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,19 +10,58 @@ namespace GS.Recruitment.Web.Controllers
 {
     public class RecruiterAssignmentsController : Controller
     {
+        private AssignmentBusinessService AssignmentSrvc = new AssignmentBusinessService();
+
+        [AuthorizedUser]
         public ActionResult Index()
         {
-            return View();
+            List<Assignment> model = new List<Assignment>();
+
+            var principal = this.User as UserCustomPrincipal;
+            if (principal != null)
+            {
+                model = AssignmentSrvc.ListUserTo(principal.UserId);
+            }
+
+            return View(model);
         }
 
-        public ActionResult View()
+        [AuthorizedUser]
+        public ActionResult View(Guid id)
         {
-            return View();
+            Assignment model = AssignmentSrvc.Get(id);
+
+            return View(model);
         }
 
-        public ActionResult AddEdit()
+        [AuthorizedUser]
+        public ActionResult AddEdit(Guid? id)
         {
-            return View();
+            Assignment model = new Assignment();
+            if (id.HasValue)
+                model = AssignmentSrvc.Get(id.Value);
+
+            return View(model);
+        }
+
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult AddEdit(Assignment assignment)
+        {
+            bool result = false;
+            try
+            {
+                result = AssignmentSrvc.AddEdit(assignment);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Index");
+            else
+                return View(assignment);
         }
 
     }

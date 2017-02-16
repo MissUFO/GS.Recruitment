@@ -26,6 +26,7 @@ namespace GS.Recruitment.Web.Controllers
             return View(model);
         }
 
+        [AuthorizedUser]
         public ActionResult View(Guid id)
         {
             Task model = TasksSrvc.Get(id);
@@ -33,6 +34,7 @@ namespace GS.Recruitment.Web.Controllers
             return View(model);
         }
 
+        [AuthorizedUser]
         public ActionResult AddEdit(Guid? id)
         {
             Task model = new Task();
@@ -40,6 +42,26 @@ namespace GS.Recruitment.Web.Controllers
                 model = TasksSrvc.Get(id.Value);
 
             return View(model);
+        }
+
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult AddEdit(Task task)
+        {
+            bool result = false;
+            try
+            {
+                result = TasksSrvc.AddEdit(task);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Index");
+            else
+                return View(task);
         }
 
     }

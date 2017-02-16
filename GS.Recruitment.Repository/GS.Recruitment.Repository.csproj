@@ -37,6 +37,7 @@
     <Compile Include="ConnectionString.cs" />
     <Compile Include="Implementation\DictionaryRepository.cs" />
     <Compile Include="Implementation\AssignmentRepository.cs" />
+    <Compile Include="Implementation\NotificationRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Implementation\TaskRepository.cs" />
     <Compile Include="Implementation\ContactRepository.cs" />
