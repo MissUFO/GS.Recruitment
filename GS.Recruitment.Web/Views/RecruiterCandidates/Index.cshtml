@@ -58,12 +58,12 @@
                                     <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))'">
                                         <td>@item.LastName</td>
                                         <td>@item.FirstName</td>
-                                        <td>@item.Emails.FirstOrDefault().EmailAddress</td>
-                                        <td>@item.Phones.FirstOrDefault().PhoneNumber</td>
-                                        <td>@item.Experiences.FirstOrDefault().CompanyName</td>
-                                        <td>@item.Experiences.FirstOrDefault().JobTitle</td>
-                                        <td>@item.JobPreferences.FirstOrDefault().LastContactDate</td>
-                                        <td>@item.JobPreferences.FirstOrDefault().LastContactedBy</td>
+                                        <td>@*@item.Emails.FirstOrDefault().EmailAddress*@</td>
+                                        <td>@*@item.Phones.FirstOrDefault().PhoneNumber*@</td>
+                                        <td>@*@item.Experiences.FirstOrDefault().CompanyName*@</td>
+                                        <td>@*@item.Experiences.FirstOrDefault().JobTitle*@</td>
+                                        <td>@*@item.JobPreferences.FirstOrDefault().LastContactDate*@</td>
+                                        <td>@*@item.JobPreferences.FirstOrDefault().LastContactedBy*@</td>
                                     </tr>
                                 }
                             </tbody>
