@@ -139,17 +139,19 @@ BEGIN
 									,a_usr.ModifiedOn
 									FROM [contact].[UserDetails] AS usr
 										LEFT OUTER JOIN auth.Users a_usr ON a_usr.Id = usr.UserId 
-										LEFT OUTER JOIN auth.UserRoles u_role ON u_role.UserId = usr.UserId
-										LEFT OUTER JOIN auth.Roles role ON role.Id = u_role.RoleId 
+										--LEFT OUTER JOIN auth.UserRoles u_role ON u_role.UserId = usr.UserId
+										--LEFT OUTER JOIN auth.Roles role ON role.Id = u_role.RoleId 
 									WHERE usr.ContactDetailId = detail.Id
 									FOR XML RAW('UserDetail'), TYPE)
 								FOR XML PATH('UserDetails'),TYPE)
 
 						  FROM [contact].[Details] AS detail
-								LEFT OUTER JOIN [contact].[UserDetails] ud ON ud.ContactDetailId = detail.Id 
+								LEFT OUTER JOIN contact.UserDetails ud ON ud.ContactDetailId = detail.Id 
+								LEFT OUTER JOIN auth.UserRoles u_role ON u_role.UserId = ud.UserId
+								LEFT OUTER JOIN auth.Roles role ON role.Id = u_role.RoleId 
 								LEFT OUTER JOIN enum.Cities d_city ON d_city.Id = detail.CityId 
 								LEFT OUTER JOIN enum.Countries d_country ON d_country.Id = detail.CountryId
-						  WHERE  ud.Id IS NULL
+						 WHERE  role.RoleType IS NULL OR role.RoleType = 2 -- only candidates
 						 FOR XML RAW('Contact'), TYPE)
 				FOR XML PATH('Contacts'),TYPE)
 END

@@ -19,6 +19,7 @@ namespace GS.Recruitment.Web.Controllers
         }
 
         private UserBusinessService UserSrvc = new UserBusinessService();
+        private UserSettingsBusinessService UserSettingsSrvc = new UserSettingsBusinessService();
 
         //
         // GET: /Account/index
@@ -122,5 +123,61 @@ namespace GS.Recruitment.Web.Controllers
 
             return View(model);
         }
+
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            bool result = false;
+            try
+            {
+                result = UserSrvc.AddEdit(user);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Edit");
+            else
+                return View(user);
+        }
+
+        //
+        // GET: /Account/Settings
+        [AuthorizedUser]
+        public ActionResult Settings()
+        {
+            var model = new UserSettings();
+            var principal = this.User as UserCustomPrincipal;
+            if (principal != null)
+            {
+                model = UserSettingsSrvc.Get(principal.UserId);
+            }
+
+            return View(model);
+        }
+
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult Settings(UserSettings settings)
+        {
+            bool result = false;
+            try
+            {
+                result = UserSettingsSrvc.AddEdit(settings);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Settings");
+            else
+                return View(settings);
+        }
+
     }
 }

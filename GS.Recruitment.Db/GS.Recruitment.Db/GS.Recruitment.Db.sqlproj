@@ -119,6 +119,11 @@
     <Build Include="Security\enum.sql" />
     <Build Include="Security\msg.sql" />
     <Build Include="Security\process.sql" />
-    <Build Include="Security\workitem.sql" />
+    <Build Include="Tables\UserSettings.sql" />
+    <Build Include="Stored Procedures\Users_Delete.sql" />
+    <Build Include="Stored Procedures\UserSettings_AddEdit.sql" />
+    <Build Include="Stored Procedures\UserSettings_Get.sql" />
+    <Build Include="Security\settings.sql" />
+    <Build Include="Security\report.sql" />
   </ItemGroup>
 </Project>

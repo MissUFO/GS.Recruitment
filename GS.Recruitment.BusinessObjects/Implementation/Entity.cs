@@ -13,6 +13,9 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
+        public bool IsSelected { get; set; }
+
         public void UnpackXML(XElement xml, string childNodeName = null)
         {
             XElement workingXML = null;

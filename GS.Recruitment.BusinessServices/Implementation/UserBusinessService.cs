@@ -31,6 +31,11 @@ namespace GS.Recruitment.BusinessServices.Implementation
             return UserRepository.AddEdit(item);
         }
 
+        public bool Delete(Guid userId)
+        {
+            return UserRepository.Delete(userId);
+        }
+
         public bool ChangeStatus(Guid id, int statusID)
         {
             return UserRepository.ChangeStatus(id, statusID);

@@ -330,6 +330,7 @@
     <Content Include="Views\RecruiterTasks\View.cshtml" />
     <Content Include="Views\RecruiterAssignments\View.cshtml" />
     <Content Include="Views\RecruiterAssignments\AddEdit.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

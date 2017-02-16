@@ -42,6 +42,7 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="checkAll" /></th>
                                     <th>LastName</th>
                                     <th>FirstName</th>
                                     <th>Email</th>
@@ -49,21 +50,20 @@
                                     <th>Company</th>
                                     <th>JobTitle</th>
                                     <th>LastContactDate</th>
-                                    <th>LastContactedBy</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))'">
+                                        <td><input type="checkbox" id="IsSelected" name="IsSelected" value="@item.Id" checked="@item.IsSelected" /></td>
                                         <td>@item.LastName</td>
                                         <td>@item.FirstName</td>
-                                        <td>@*@item.Emails.FirstOrDefault().EmailAddress*@</td>
-                                        <td>@*@item.Phones.FirstOrDefault().PhoneNumber*@</td>
-                                        <td>@*@item.Experiences.FirstOrDefault().CompanyName*@</td>
-                                        <td>@*@item.Experiences.FirstOrDefault().JobTitle*@</td>
-                                        <td>@*@item.JobPreferences.FirstOrDefault().LastContactDate*@</td>
-                                        <td>@*@item.JobPreferences.FirstOrDefault().LastContactedBy*@</td>
+                                        <td>@(item.Emails.Count > 0 ? item.Emails[0].EmailAddress : "")</td>
+                                        <td>@(item.Phones.Count > 0 ? item.Phones[0].PhoneNumber : "")</td>
+                                        <td>@(item.Experiences.Count > 0 ? item.Experiences[0].CompanyName : "")</td>
+                                        <td>@(item.Experiences.Count > 0 ? item.Experiences[0].JobTitle : "")</td>
+                                        <td>@(item.JobPreferences.Count > 0 ? item.JobPreferences[0].LastContactDate.ToString() : "")</td>
                                     </tr>
                                 }
                             </tbody>
@@ -89,6 +89,10 @@
             $(document).ready(function () {
                 $('#dataTables-example').DataTable({
                     responsive: true
+                });
+                $("#checkAll").click(function () {
+                    $("#IsSelected").prop('checked', 
+                        $(this).prop('checked'));
                 });
             });
         </script>

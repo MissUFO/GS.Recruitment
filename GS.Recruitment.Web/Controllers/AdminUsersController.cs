@@ -56,6 +56,27 @@ namespace GS.Recruitment.Web.Controllers
                 return View(user);
         }
 
+        [HttpPost]
+        public ActionResult Delete(List<User> users)
+        {
+            bool result = false;
+            try
+            {
+               var selectedUsers = users.Where(itm => itm.IsSelected = true);
+                foreach(var itm in selectedUsers)
+                    result = UserSrvc.Delete(itm.UserId);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            if (result)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("Index");
+        }
+
         private List<SelectListItem> RoleTypesSelectListItems()
         {
             return Enum.GetNames(typeof(RoleType)).Select(c => new SelectListItem() { Text = c, Value = c }).ToList();

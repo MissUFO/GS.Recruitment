@@ -121,6 +121,26 @@ namespace GS.Recruitment.Repository.Implementation
 
             return result;
         }
+
+        /// <summary>
+        /// Delete User
+        /// </summary>
+        public static bool Delete(Guid userId)
+        {
+            bool result = false;
+
+            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            {
+                dataManager.ExecuteString = "auth.Users_Delete";
+                dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
+                dataManager.ExecuteNonQuery();
+
+                result = true;
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Get Users list
         /// </summary>

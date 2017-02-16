@@ -23,6 +23,8 @@ BEGIN TRAN
 	
         UPDATE auth.Users
             SET [Login] = @Login
+			   ,[FirstName] = @FirstName
+			   ,[LastName] = @LastName
                ,[ModifiedOn] = GETDATE()
 	           ,[UserStatus] = @UserStatus
 	        WHERE Id = @UserID
@@ -39,6 +41,8 @@ BEGIN TRAN
            ([Id]
            ,[Login]
            ,[Password]
+		   ,[FirstName]
+		   ,[LastName]
 		   ,[LastPasswordChangedOn]
            ,[FailedPasswordAttemptCount]
            ,[CreatedOn]
@@ -48,6 +52,8 @@ BEGIN TRAN
            (@UserID
            ,@Login
            ,@Password
+		   ,@FirstName
+		   ,@LastName
 		   ,GETDATE()
            ,0
            ,GETDATE()
@@ -56,32 +62,38 @@ BEGIN TRAN
 
     END
 	
-	-- Create or update contact detail
-	DECLARE	@OutputId				 uniqueidentifier
-	DECLARE	@ContactDetailId		 uniqueidentifier
+	-- if it's candidate
+	IF @RoleType = 2
+	BEGIN
 
-	IF EXISTS(SELECT 1 FROM [contact].[UserDetails] WHERE [UserId]=@UserID)
-		BEGIN
+		-- Create or update contact detail
+		DECLARE	@OutputId				 uniqueidentifier
+		DECLARE	@ContactDetailId		 uniqueidentifier
+
+		IF EXISTS(SELECT 1 FROM [contact].[UserDetails] WHERE [UserId]=@UserID)
+			BEGIN
 			    
-				SET @ContactDetailId = (SELECT top(1) ContactDetailId FROM [contact].[UserDetails] WHERE [UserId]=@UserID)
+					SET @ContactDetailId = (SELECT top(1) ContactDetailId FROM [contact].[UserDetails] WHERE [UserId]=@UserID)
 		
-				EXEC [contact].[Details_AddEdit] @ContactDetailId, @FirstName, @LastName,
-					@OutputId = @OutputId OUTPUT
-		END
-		ELSE
-		BEGIN
-				EXEC  [contact].[Details_AddEdit] @ContactDetailId, @FirstName, @LastName,
-					@OutputId = @OutputId OUTPUT
+					EXEC [contact].[Details_AddEdit] @ContactDetailId, @FirstName, @LastName,
+						@OutputId = @OutputId OUTPUT
+			END
+			ELSE
+			BEGIN
+					EXEC  [contact].[Details_AddEdit] @ContactDetailId, @FirstName, @LastName,
+						@OutputId = @OutputId OUTPUT
 
-				-- Associate the contact detail to user
+					-- Associate the contact detail to user
 
-			    INSERT INTO [contact].[UserDetails] ([Id], [UserId] ,[ContactDetailId] ,[CreatedOn],[ModifiedOn])
-				VALUES (NEWID(), @UserID, @OutputId, GETDATE(), GETDATE())
-		END
+					INSERT INTO [contact].[UserDetails] ([Id], [UserId] ,[ContactDetailId] ,[CreatedOn],[ModifiedOn])
+					VALUES (NEWID(), @UserID, @OutputId, GETDATE(), GETDATE())
+			END
 
-	-- Associate role to user
+		-- Associate role to user
 	   
-	EXEC  [auth].[UserRoles_AddEdit] @UserID, @RoleType
+		EXEC  [auth].[UserRoles_AddEdit] @UserID, @RoleType
+
+	END
 
     COMMIT TRAN;		
    END TRY

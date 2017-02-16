@@ -2,6 +2,8 @@
     [Id]                         UNIQUEIDENTIFIER NOT NULL,
     [Login]                      NVARCHAR (255)   NOT NULL,
     [Password]                   NVARCHAR (255)   NOT NULL,
+    [FirstName]                  NVARCHAR (255)   NULL,
+    [LastName]                   NVARCHAR (255)   NULL,
     [UserStatus]                 INT              CONSTRAINT [DF_Users_UserStatus] DEFAULT ((0)) NOT NULL,
     [CreatedOn]                  DATETIME         CONSTRAINT [DF_Users_Created] DEFAULT (getdate()) NOT NULL,
     [ModifiedOn]                 DATETIME         CONSTRAINT [DF_Users_Modified] DEFAULT (getdate()) NOT NULL,
@@ -12,6 +14,8 @@
     [ModifiedBy]                 UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK__Users__3214EC078DD2AB22] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 GO

@@ -59,6 +59,7 @@
     <Compile Include="Implementation\Skill.cs" />
     <Compile Include="Implementation\SocialNetwork.cs" />
     <Compile Include="Implementation\Notification.cs" />
+    <Compile Include="Implementation\UserSettings.cs" />
     <Compile Include="Implementation\UserCustomIdentity.cs" />
     <Compile Include="Implementation\UserCustomPrincipal.cs" />
     <Compile Include="Implementation\Entity.cs" />

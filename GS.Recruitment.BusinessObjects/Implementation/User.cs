@@ -37,6 +37,11 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         public DateTime ModifiedOn { get; set; }
         [DataMember]
         public UserStatus UserStatus { get; set; }
+
+        [DataMember]
+        public List<UserSettings> UserSettings { get { return _userSettings; } set { _userSettings = value; } }
+        private List<UserSettings> _userSettings = new List<UserSettings>();
+
         [DataMember]
         public List<UserRole> Roles { get { return _roles; } set { _roles = value; } }
         private List<UserRole> _roles = new List<UserRole>();
@@ -65,6 +70,8 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.UserStatus = xml.Attribute("UserStatus").ToEnum<UserStatus>();
 
             this.IsActive = (this.UserStatus == UserStatus.Active);
+
+            this.UserSettings.UnpackXML<UserSettings>(xml);
 
             this.Roles.UnpackXML<UserRole>(xml);
 

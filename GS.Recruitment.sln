@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.Recruitment.Framework", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GS.Recruitment.Db", "GS.Recruitment.Db\GS.Recruitment.Db\GS.Recruitment.Db.sqlproj", "{A5D60BE9-FCA3-4AD8-85F1-67FA492E7AF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{48FA2314-C643-49F5-94C7-94344C05B437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,5 +51,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5D60BE9-FCA3-4AD8-85F1-67FA492E7AF1} = {48FA2314-C643-49F5-94C7-94344C05B437}
 	EndGlobalSection
 EndGlobal

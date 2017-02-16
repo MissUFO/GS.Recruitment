@@ -29,6 +29,8 @@ namespace GS.Recruitment.BusinessObjects.Interface
 
         UserStatus UserStatus { get; set; }
 
+        List<UserSettings> UserSettings { get; set; }
+
         List<UserRole> Roles { get; set; }
 
         bool IsActive { get; set; }

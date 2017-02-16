@@ -45,6 +45,7 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="checkAll" /></th>
                                     <th>Login</th>
                                     <th>Name</th>
                                     <th>Role</th>
@@ -57,6 +58,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "AdminUsers", new { id = item.UserId }))'">
+                                        <td><input type="checkbox" id="IsSelected" name="IsSelected" value="@item.UserId" checked="@item.IsSelected" /></td>
                                         <td>@item.Login</td>
                                         <td>@item.Name</td>
                                         <td>@(item.Roles.Any(itm => itm.RoleType == RoleType.Administrator) ? "Administrator" : "Recruiter")</td>
@@ -88,6 +90,10 @@
             $(document).ready(function () {
                 $('#dataTables-example').DataTable({
                     responsive: true
+                });
+                $("#checkAll").click(function () {
+                    $("#IsSelected").prop('checked', 
+                        $(this).prop('checked'));
                 });
             });
         </script>

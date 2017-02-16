@@ -33,9 +33,14 @@ namespace GS.Recruitment.Web
             var user = HttpContext.Current.User as UserCustomPrincipal;
             if (user != null)
             {
+                string pagePath = HttpContext.Current.Request.Path.ToLower();
+
+                if (pagePath.Contains("/home") || pagePath.Contains("/account"))
+                    return;
+
                 if (user.IsInRole(RoleType.Administrator))
                 {
-                    if (false==HttpContext.Current.Request.Path.ToLower().Contains("/admin"))
+                    if (false == pagePath.Contains("/admin"))
                     {
                         //not authorised to view the page
                         filterContext.Result = new RedirectResult("~/");
@@ -44,7 +49,7 @@ namespace GS.Recruitment.Web
                 }
                 if (user.IsInRole(RoleType.Recruiter))
                 {
-                    if (false == HttpContext.Current.Request.Path.ToLower().Contains("/recruiter"))
+                    if (false == pagePath.Contains("/recruiter"))
                     {
                         //not authorised to view the page
                         filterContext.Result = new RedirectResult("~/");
