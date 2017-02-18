@@ -33,7 +33,7 @@ namespace GS.Recruitment.Web.Controllers
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
-        { 
+        {
             ViewBag.ReturnUrl = returnUrl;
 
             if (Request.IsAuthenticated)
@@ -47,7 +47,7 @@ namespace GS.Recruitment.Web.Controllers
                         return RedirectToAction("Index", "RecruiterDashboard");
                 }
             }
-
+            
             return View();
         }
 
@@ -59,10 +59,8 @@ namespace GS.Recruitment.Web.Controllers
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
-
+            
             try
             {
                 var user = UserSrvc.Login(model.Email, model.Password);
@@ -73,6 +71,11 @@ namespace GS.Recruitment.Web.Controllers
                     FormsAuthentication.SetAuthCookie(user.Name, false);
 
                     HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                    if (model.RememberMe)
+                    {
+                        model.SetRememberMeCookie();
+                        authCookie.Expires.AddDays(365);
+                    }
                     authCookie.Value = FormsAuthentication.Encrypt(ticket); ;
                     Request.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, authCookie.Value));
 

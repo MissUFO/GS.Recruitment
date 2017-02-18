@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace GS.Recruitment.Web.Models
 {
@@ -60,6 +61,31 @@ namespace GS.Recruitment.Web.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public LoginViewModel()
+        {
+            this.RememberMe = GetRememberMeCookie();
+        }
+
+        public void SetRememberMeCookie()
+        {
+            HttpContext.Current.Response.Cookies.Remove("RememberMe");
+
+            var rememberMeCookie = new HttpCookie("RememberMe", RememberMe.ToString());
+            rememberMeCookie.Expires.AddDays(365);
+
+            HttpContext.Current.Response.Cookies.Add(rememberMeCookie);
+        }
+
+        public bool GetRememberMeCookie()
+        {
+            bool result = this.RememberMe;
+
+            if (HttpContext.Current.Response.Cookies["RememberMe"] != null)
+                bool.TryParse(HttpContext.Current.Response.Cookies["RememberMe"].Value, out result);
+
+            return result;
+        }
     }
 
     public class RegisterViewModel
