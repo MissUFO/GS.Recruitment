@@ -45,8 +45,8 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.CityName = xml.Attribute("CityName").ToType<string>();
             this.DateFrom = xml.Attribute("DateFrom").ToType<DateTime>();
             this.DateTo = xml.Attribute("DateTo").ToType<DateTime>();
-            this.IsCurrent = xml.Attribute("IsCurrent").ToType<bool>();
-            this.IsGraduated = xml.Attribute("IsGraduated").ToType<bool>();
+            this.IsCurrent = Convert.ToBoolean(xml.Attribute("IsCurrent").ToType<int>());
+            this.IsGraduated = Convert.ToBoolean(xml.Attribute("IsGraduated").ToType<int>());
             this.GraduatedAs = xml.Attribute("GraduatedAs").ToType<string>();
             this.CreatedOn = xml.Attribute("CreatedOn").ToType<DateTime>();
             this.ModifiedOn = xml.Attribute("ModifiedOn").ToType<DateTime>();

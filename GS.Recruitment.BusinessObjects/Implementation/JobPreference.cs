@@ -50,7 +50,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.CityName = xml.Attribute("CityName").ToType<string>();
             this.CountryName = xml.Attribute("CountryName").ToType<string>();
             this.CountryId = xml.Attribute("CountryId").ToType<Guid>();
-            this.IsReadyForRelocation = xml.Attribute("IsReadyForRelocation").ToType<bool>();
+            this.IsReadyForRelocation = Convert.ToBoolean(xml.Attribute("IsReadyForRelocation").ToType<int>());
             this.Description = xml.Attribute("Description").ToType<string>();
             this.LastContactDate = xml.Attribute("LastContactDate").ToType<DateTime>();
             this.LastContactedBy = xml.Attribute("LastContactedBy").ToType<Guid>();

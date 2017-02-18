@@ -26,8 +26,8 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
             this.UserId = xml.Attribute("UserId").ToType<Guid>();
-            this.SystemNotifications = xml.Attribute("SystemNotifications").ToType<bool>();
-            this.EmailNotifications = xml.Attribute("EmailNotifications").ToType<bool>();
+            this.SystemNotifications = Convert.ToBoolean(xml.Attribute("SystemNotifications").ToType<int>());
+            this.EmailNotifications = Convert.ToBoolean(xml.Attribute("EmailNotifications").ToType<int>());
             
             this.ModifiedOn = xml.Attribute("ModifiedOn").ToType<DateTime>();
         }

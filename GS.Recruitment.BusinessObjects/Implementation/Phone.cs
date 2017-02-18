@@ -22,7 +22,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
             this.PhoneNumber = xml.Attribute("Phone").ToType<string>();
-            this.IsPreferred = xml.Attribute("IsPreferred").ToType<bool>();
+            this.IsPreferred = Convert.ToBoolean(xml.Attribute("IsPreferred").ToType<int>());
         }
     }
 }

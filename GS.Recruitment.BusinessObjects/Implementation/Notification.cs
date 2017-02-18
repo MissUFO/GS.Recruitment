@@ -47,7 +47,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.UserLogin = xml.Attribute("UserLogin").ToType<string>();
             this.NotificationType = xml.Attribute("NotificationType").ToEnum<NotificationTypes>();
             this.CreatedOn = xml.Attribute("CreatedOn").ToType<DateTime>();
-            this.IsReceived = xml.Attribute("IsReceived").ToType<bool>();
+            this.IsReceived = Convert.ToBoolean(xml.Attribute("IsReceived").ToType<int>());
             this.ReceivedOn = xml.Attribute("ReceivedOn").ToType<DateTime>();
         }
     }
