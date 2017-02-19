@@ -22,19 +22,27 @@
                     <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    Actions
+                                    <i class="fa fa-cog fa-fw"></i> Actions
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li>
-                                        <a href="@Url.Action("AddEdit","AdminUsers")">New User</a>
+                                        <a href="@Url.Action("AddEdit","AdminUsers")">
+                                            <i class="fa fa-file-text-o fa-fw"></i> New User</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="#">Lock</a>
+                                        <a href="#">
+                                            <i class="fa fa-lock fa-fw"></i> Lock</a>
                                     </li>
                                     <li>
-                                        <a href="#">Delete</a>
+                                        <a href="#">
+                                            <i class="fa fa-unlock-alt fa-fw"></i> Unlock
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-trash-o fa-fw"></i> Delete</a>
                                     </li>
                                 </ul>
                             </div>

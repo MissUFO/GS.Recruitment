@@ -22,16 +22,19 @@
                     <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    Actions
+                                    <i class="fa fa-cog fa-fw"></i> Actions
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li>
-                                        <a href="@Url.Action("AddEdit","RecruiterCandidates")">New User</a>
+                                        <a href="@Url.Action("AddEdit","RecruiterCandidates")">
+                                            <i class="fa fa-file-text-o fa-fw"></i> New Candidate
+                                        </a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="#">Delete</a>
+                                        <a href="#">
+                                            <i class="fa fa-trash-o fa-fw"></i> Delete</a>
                                     </li>
                                 </ul>
                             </div>
@@ -43,8 +46,7 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" id="checkAll" /></th>
-                                    <th>LastName</th>
-                                    <th>FirstName</th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Company</th>
@@ -55,10 +57,9 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))'">
+                                    <tr class="odd gradeX" >
                                         <td><input type="checkbox" id="IsSelected" name="IsSelected" value="@item.Id" checked="@item.IsSelected" /></td>
-                                        <td>@item.LastName</td>
-                                        <td>@item.FirstName</td>
+                                        <td><a href="@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))">@item.Name</a></td>
                                         <td>@(item.Emails.Count > 0 ? item.Emails[0].EmailAddress : "")</td>
                                         <td>@(item.Phones.Count > 0 ? item.Phones[0].PhoneNumber : "")</td>
                                         <td>@(item.Experiences.Count > 0 ? item.Experiences[0].CompanyName : "")</td>
