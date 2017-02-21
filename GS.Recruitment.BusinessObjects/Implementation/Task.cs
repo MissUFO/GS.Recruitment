@@ -1,8 +1,8 @@
-﻿using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+﻿using GS.Recruitment.BusinessObjects.Enum;
+using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace GS.Recruitment.BusinessObjects.Implementation

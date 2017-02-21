@@ -11,6 +11,8 @@ namespace GS.Recruitment.Web.Controllers
     public class RecruiterTasksController : Controller
     {
         private TaskBusinessService TasksSrvc = new TaskBusinessService();
+        private UserBusinessService UsersSrvc = new UserBusinessService();
+        private AssignmentBusinessService AssignmentsSrvc = new AssignmentBusinessService();
 
         [AuthorizedUser]
         public ActionResult Index()
@@ -38,20 +40,24 @@ namespace GS.Recruitment.Web.Controllers
         public ActionResult AddEdit(Guid? id)
         {
             Task model = new Task();
-            if(id.HasValue)
+            if (id.HasValue)
                 model = TasksSrvc.Get(id.Value);
+
+            InitCurrentUser(model);
+
+            InitViewBags(model);
 
             return View(model);
         }
 
         [AuthorizedUser]
         [HttpPost]
-        public ActionResult AddEdit(Task task)
+        public ActionResult AddEdit(Task model)
         {
             bool result = false;
             try
             {
-                result = TasksSrvc.AddEdit(task);
+                result = TasksSrvc.AddEdit(model);
             }
             catch (Exception ex)
             {
@@ -61,8 +67,41 @@ namespace GS.Recruitment.Web.Controllers
             if (result)
                 return RedirectToAction("Index");
             else
-                return View(task);
+            {
+                InitViewBags(model);
+                return View(model);
+            }
         }
+
+
+        private void InitCurrentUser(Task model)
+        {
+            if (model.UserFromId == Guid.Empty)
+            {
+                var principal = this.User as UserCustomPrincipal;
+                if (principal != null)
+                {
+                    model.UserFromId = principal.UserId;
+                    model.UserFromLogin = principal.Login;
+                    model.CreatedBy = principal.UserId;
+                    model.CreatedOn = DateTime.Now;
+                }
+            }
+        }
+
+        private void InitViewBags(Task model)
+        {
+            ViewBag.Users = UsersSelectListItems(model.UserToId);
+            ViewBag.Assignments = AssignmentsSrvc.ListTask(model.Id);
+        }
+
+        private List<SelectListItem> UsersSelectListItems(Guid? selectedUserId)
+        {
+            var recruiters = UsersSrvc.ListRecruiters();
+
+            return recruiters.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.UserId.ToString(), Selected=(selectedUserId.HasValue && itm.UserId== selectedUserId.Value) }).ToList();
+        }
+
 
     }
 }

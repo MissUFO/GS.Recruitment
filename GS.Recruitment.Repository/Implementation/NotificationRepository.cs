@@ -53,7 +53,7 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, notification.UserId);
                 dataManager.Add("@EntityId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, notification.EntityId);
                 dataManager.Add("@EntityType", SqlDbType.Int, ParameterDirection.Input, notification.EntityType);
-                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, notification.CreatedOn);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, notification.CreatedOn != DateTime.MinValue ? notification.CreatedOn : DateTime.Now);
                 dataManager.Add("@IsReceived", SqlDbType.Bit, ParameterDirection.Input, notification.IsReceived);
                 dataManager.Add("@ReceivedOn", SqlDbType.DateTime, ParameterDirection.Input, notification.ReceivedOn);
                 

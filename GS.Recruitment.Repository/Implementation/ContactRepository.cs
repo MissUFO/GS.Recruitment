@@ -54,8 +54,8 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@CityId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CityId);
                 dataManager.Add("@CountryId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CountryId);
                 dataManager.Add("@Birthday", SqlDbType.DateTime, ParameterDirection.Input, contact.Birthday);
-                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.CreatedOn);
-                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.ModifiedOn);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.CreatedOn != DateTime.MinValue ? contact.CreatedOn : DateTime.Now);
+                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, contact.ModifiedOn != DateTime.MinValue ? contact.ModifiedOn : DateTime.Now);
                 dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.CreatedBy);
                 dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.ModifiedBy);
                 dataManager.Add("@OutputId", SqlDbType.UniqueIdentifier, ParameterDirection.Output);

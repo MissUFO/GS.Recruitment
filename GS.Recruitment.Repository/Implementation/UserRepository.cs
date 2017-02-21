@@ -159,5 +159,24 @@ namespace GS.Recruitment.Repository.Implementation
 
             return users;
         }
+
+        /// <summary>
+        /// Get Users list
+        /// </summary>
+        public static List<User> ListRecruiters()
+        {
+            List<User> users = new List<User>();
+
+            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            {
+                dataManager.ExecuteString = "auth.Users_List_Recruiters";
+                dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
+                dataManager.ExecuteReader();
+                XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
+                users.UnpackXML(xmlOut);
+            }
+
+            return users;
+        }
     }
 }

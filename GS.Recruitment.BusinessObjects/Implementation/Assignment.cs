@@ -1,4 +1,5 @@
 ﻿using GS.Recruitment.BusinessObjects.Enum;
+using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,11 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         public Guid Id { get; set; }
         [DataMember]
         public Guid TaskId { get; set; }
+
+        [DataMember]
+        public Task Task { get { return _task; } set { _task = value; } }
+        private Task _task = new Task();
+
         [DataMember]
         public string Title { get; set; }
         [DataMember]
@@ -46,6 +52,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
+            this.TaskId = xml.Attribute("TaskId").ToType<Guid>();
             this.Name = xml.Attribute("Title").ToType<string>();
             this.Title = xml.Attribute("Title").ToType<string>();
             this.Description = xml.Attribute("Description").ToType<string>();
@@ -53,11 +60,13 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.UserFromLogin = xml.Attribute("UserFromLogin").ToType<string>();
             this.UserToId = xml.Attribute("UserToId").ToType<Guid>();
             this.UserToLogin = xml.Attribute("UserToLogin").ToType<string>();
-            this.AssignmentStatus = xml.Attribute("TaskStatus").ToEnum<AssignmentStatus>();
+            this.AssignmentStatus = xml.Attribute("AssignmentStatus").ToEnum<AssignmentStatus>();
             this.CreatedOn = xml.Attribute("CreatedOn").ToType<DateTime>();
             this.ModifiedOn = xml.Attribute("ModifiedOn").ToType<DateTime>();
             this.CreatedBy = xml.Attribute("CreatedBy").ToType<Guid>();
             this.ModifiedBy = xml.Attribute("ModifiedBy").ToType<Guid>();
+
+            this.Task.UnpackXML(xml);
 
             this.Contacts.UnpackXML<Contact>(xml);
         }

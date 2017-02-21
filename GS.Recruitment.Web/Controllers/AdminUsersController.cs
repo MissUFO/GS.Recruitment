@@ -30,8 +30,6 @@ namespace GS.Recruitment.Web.Controllers
             if (id.HasValue)
                 user = UserSrvc.Get(id.Value);
 
-            ViewBag.RoleTypes = RoleTypesSelectListItems();
-
             return View(user);
         }
 
@@ -75,11 +73,6 @@ namespace GS.Recruitment.Web.Controllers
                 return RedirectToAction("Index");
             else
                 return RedirectToAction("Index");
-        }
-
-        private List<SelectListItem> RoleTypesSelectListItems()
-        {
-            return Enum.GetNames(typeof(RoleType)).Select(c => new SelectListItem() { Text = c, Value = c }).ToList();
         }
 
     }

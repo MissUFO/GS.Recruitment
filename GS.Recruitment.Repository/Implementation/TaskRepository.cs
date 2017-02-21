@@ -52,10 +52,10 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.UserFromId);
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.UserToId);
                 dataManager.Add("@TaskStatus", SqlDbType.TinyInt, ParameterDirection.Input, (int)task.TaskStatus);
-                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, task.CreatedOn);
-                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, task.ModifiedOn);
-                dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.CreatedBy);
-                dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.ModifiedBy);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, task.CreatedOn != DateTime.MinValue ? task.CreatedOn : DateTime.Now);
+                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, task.ModifiedOn != DateTime.MinValue ? task.ModifiedOn : DateTime.Now);
+                dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.CreatedBy != Guid.Empty? task.CreatedBy : task.UserFromId);
+                dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.ModifiedBy != Guid.Empty ? task.ModifiedBy : task.UserFromId);
 
                 dataManager.ExecuteNonQuery();
 

@@ -27,12 +27,21 @@ namespace GS.Recruitment.BusinessServices.Implementation
         {
             return AssignmentRepository.AddEdit(assignment);
         }
+        
         /// <summary>
         /// Get assignments list by user to id
         /// </summary>
         public List<Assignment> ListUserTo(Guid userId)
         {
             return AssignmentRepository.ListUserTo(userId);
+        }
+
+        /// <summary>
+        /// Get assignments list by task id
+        /// </summary>
+        public List<Assignment> ListTask(Guid taskId)
+        {
+            return AssignmentRepository.ListTask(taskId);
         }
     }
 }

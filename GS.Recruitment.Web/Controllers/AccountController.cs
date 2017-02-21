@@ -66,7 +66,7 @@ namespace GS.Recruitment.Web.Controllers
                 var user = UserSrvc.Login(model.Email, model.Password);
 
                 if (user != null)
-                {
+                {   
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, user.Name, DateTime.Now, DateTime.Now.AddDays(30), false, JsonConvert.SerializeObject(user), FormsAuthentication.FormsCookiePath);
                     FormsAuthentication.SetAuthCookie(user.Name, false);
 
@@ -98,16 +98,7 @@ namespace GS.Recruitment.Web.Controllers
         [AllowAnonymous]
         public ActionResult LogOff()
         {
-            // Delete the user details from cache.
-            Session.Abandon();
-
-            // Delete the authentication ticket and sign out.
-            FormsAuthentication.SignOut();
-
-            // Clear authentication cookie.
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
-            cookie.Expires = DateTime.Now.AddYears(-1);
-            Response.Cookies.Add(cookie);
+            SignOut();
 
             return RedirectToAction("Index", "Home");
         }
@@ -180,6 +171,20 @@ namespace GS.Recruitment.Web.Controllers
                 return RedirectToAction("Settings");
             else
                 return View(settings);
+        }
+
+        private void SignOut()
+        {
+            // Delete the user details from cache.
+            Session.Abandon();
+
+            // Delete the authentication ticket and sign out.
+            FormsAuthentication.SignOut();
+
+            // Clear authentication cookie.
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
         }
 
     }

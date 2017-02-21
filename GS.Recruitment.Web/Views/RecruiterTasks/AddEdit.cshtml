@@ -3,7 +3,7 @@
 @model Task
 @{
     Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
-    ViewBag.Title = Model.Id==Guid.Empty ? "New Task" : "Task";
+    ViewBag.Title = Model.Id == Guid.Empty ? "New Task" : "Task";
 }
 
 <div class="row">
@@ -21,37 +21,125 @@
             </div>
 
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        @using (Html.BeginForm("AddEdit", "RecruiterTasks", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(m => m.Id)
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
-                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#task-panel" data-toggle="tab">Task</a>
+                    </li>
+                    <li>
+                        <a href="#assignment-panel" data-toggle="tab">Assignments</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="task-panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    @using (Html.BeginForm("AddEdit", "RecruiterTasks", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                              {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.Id)
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows=5 })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.UserFromId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DisplayFor(m => m.UserFromLogin, new { @class = "form-control" })
+                                        @Html.HiddenFor(m => m.UserFromId)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.UserToId, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.UserToId, (IEnumerable<SelectListItem>)ViewBag.Users, "Please select user", new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.UserToId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TaskStatus, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.TaskStatus, new SelectList(Enum.GetNames(typeof(TaskStatus)), (int)Model.TaskStatus), new { @class = "form-control", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.TaskStatus, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> </label>
+                                    <div class="col-md-10">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                              }
                                 </div>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control", required = "required" })
-                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="assignment-panel">
+                        <div class="panel-heading">
+                            Task assignments
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-cog fa-fw"></i> Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="@Url.Action("AddEdit","RecruiterTasks", new { taskId = Model.Id })">
+                                                <i class="fa fa-file-text-o fa-fw"></i> New Task
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-trash-o fa-fw"></i> Delete
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            
-
-                            <div class="form-group">
-                                <label class="col-md-2 control-label"> </label>
-                                <div class="col-md-10">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                        }
+                        </div>
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>UserFrom</th>
+                                        <th>UserTo</th>
+                                        <th>Status</th>
+                                        <th>CreatedOn</th>
+                                        <th>ModifiedOn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Assignments)
+                                {
+                                <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "RecruiterAssignments", new { id = item.Id }))'">
+                                    <td>@item.Title</td>
+                                    <td>@item.UserFromLogin</td>
+                                    <td>@item.UserToLogin</td>
+                                    <td>@item.AssignmentStatus</td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>@item.ModifiedOn</td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <!-- /Tab panes -->
             </div>
 
         </div>

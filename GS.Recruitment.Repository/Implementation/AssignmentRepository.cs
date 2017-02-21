@@ -52,8 +52,8 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.UserFromId);
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.UserToId);
                 dataManager.Add("@AssignmentStatus", SqlDbType.TinyInt, ParameterDirection.Input, (int)assignment.AssignmentStatus);
-                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, assignment.CreatedOn);
-                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, assignment.ModifiedOn);
+                dataManager.Add("@CreatedOn", SqlDbType.DateTime, ParameterDirection.Input, assignment.CreatedOn != DateTime.MinValue ? assignment.CreatedOn : DateTime.Now);
+                dataManager.Add("@ModifiedOn", SqlDbType.DateTime, ParameterDirection.Input, assignment.ModifiedOn != DateTime.MinValue ? assignment.ModifiedOn : DateTime.Now);
                 dataManager.Add("@CreatedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.CreatedBy);
                 dataManager.Add("@ModifiedBy", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.ModifiedBy);
 
@@ -77,6 +77,26 @@ namespace GS.Recruitment.Repository.Implementation
             {
                 dataManager.ExecuteString = "process.Assignments_List_UserTo";
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
+                dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
+                dataManager.ExecuteReader();
+                XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
+                assignments.UnpackXML(xmlOut);
+            }
+
+            return assignments;
+        }
+
+        /// <summary>
+        /// Get assignments list by task id
+        /// </summary>
+        public static List<Assignment> ListTask(Guid taskId)
+        {
+            List<Assignment> assignments = new List<Assignment>();
+
+            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            {
+                dataManager.ExecuteString = "process.Assignments_List_Task";
+                dataManager.Add("@TaskId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taskId);
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
                 dataManager.ExecuteReader();
                 XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());

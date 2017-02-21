@@ -16,6 +16,11 @@ namespace GS.Recruitment.BusinessServices.Implementation
             return UserRepository.List();
         }
 
+        public List<User> ListRecruiters()
+        {
+            return UserRepository.ListRecruiters();
+        }
+
         public User Get(Guid id)
         {
             return UserRepository.Get(id);
