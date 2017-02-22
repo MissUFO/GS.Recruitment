@@ -15,6 +15,10 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     {
         [DataMember]
         public Guid Id { get; set; }
+
+        [DataMember]
+        public string Number { get; set; }
+
         [DataMember]
         public string Title { get; set; }
         [DataMember]
@@ -45,6 +49,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
+            this.Number = "T" + xml.Attribute("Number").ToType<int>();
             this.Name = xml.Attribute("Title").ToType<string>();
             this.Title = xml.Attribute("Title").ToType<string>();
             this.Description = xml.Attribute("Description").ToType<string>();

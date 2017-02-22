@@ -27,7 +27,17 @@ namespace GS.Recruitment.BusinessServices.Implementation
         {
             return AssignmentRepository.AddEdit(assignment);
         }
-        
+
+
+        /// <summary>
+        /// AddEdit contact into assignment
+        /// </summary>
+        /// <param name="task"></param>
+        public bool AssignmentContact_AddEdit(AssignmentContact assignmentContact)
+        {
+            return AssignmentRepository.AssignmentContact_AddEdit(assignmentContact);
+        }
+
         /// <summary>
         /// Get assignments list by user to id
         /// </summary>

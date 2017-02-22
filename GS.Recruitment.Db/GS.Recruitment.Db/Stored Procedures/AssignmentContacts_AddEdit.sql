@@ -1,11 +1,11 @@
 ﻿CREATE PROCEDURE [process].[AssignmentContacts_AddEdit]	
-				    @Id				uniqueidentifier
+				    @Id				uniqueidentifier = null
 				   ,@AssignmentId	uniqueidentifier 
 				   ,@ContactId		uniqueidentifier 
 				   ,@AssignmentContactStatus   tinyint = 0
-				   ,@Comment		nvarchar(max)
-				   ,@CreatedOn		datetime
-				   ,@ModifiedOn		datetime
+				   ,@Comment		nvarchar(max) = null
+				   ,@CreatedOn		datetime = null
+				   ,@ModifiedOn		datetime = null
 				   ,@CreatedBy		uniqueidentifier = null
 				   ,@ModifiedBy		uniqueidentifier = null			
 AS

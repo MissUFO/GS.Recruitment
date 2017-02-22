@@ -16,6 +16,10 @@ namespace GS.Recruitment.BusinessObjects.Implementation
     {
         [DataMember]
         public Guid Id { get; set; }
+
+        [DataMember]
+        public string Number { get; set; }
+
         [DataMember]
         public Guid TaskId { get; set; }
 
@@ -41,17 +45,21 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         public DateTime CreatedOn { get; set; }
         [DataMember]
         public DateTime ModifiedOn { get; set; }
+
         [DataMember]
         public Guid CreatedBy { get; set; }
+
         [DataMember]
         public Guid ModifiedBy { get; set; }
+
         [DataMember]
-        public List<Contact> Contacts { get { return _contacts; } set { _contacts = value; } }
-        private List<Contact> _contacts = new List<Contact>();
+        public List<AssignmentContact> AssignmentContacts { get { return _assignmentContacts; } set { _assignmentContacts = value; } }
+        private List<AssignmentContact> _assignmentContacts = new List<AssignmentContact>();
 
         protected override void CreateObjectFromXml(XElement xml)
         {
             this.Id = xml.Attribute("Id").ToType<Guid>();
+            this.Number = "A" + xml.Attribute("Number").ToType<int>();
             this.TaskId = xml.Attribute("TaskId").ToType<Guid>();
             this.Name = xml.Attribute("Title").ToType<string>();
             this.Title = xml.Attribute("Title").ToType<string>();
@@ -68,7 +76,7 @@ namespace GS.Recruitment.BusinessObjects.Implementation
 
             this.Task.UnpackXML(xml);
 
-            this.Contacts.UnpackXML<Contact>(xml);
+            this.AssignmentContacts.UnpackXML<AssignmentContact>(xml.Element("AssignmentContacts"));
         }
     }
 }

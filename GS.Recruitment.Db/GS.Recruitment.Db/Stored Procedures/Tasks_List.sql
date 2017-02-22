@@ -5,6 +5,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	SET @Xml = (SELECT (SELECT task.Id
+							  ,task.Number
 							  ,task.Title
 							  ,task.Description
 							  ,task.UserFromId
@@ -18,6 +19,7 @@ BEGIN
 							  ,task.ModifiedBy
 							,(SELECT(SELECT	 
 									 assignment.Id
+									,assignment.Number
 									,ta.TaskId
 									,assignment.Title
 									,assignment.Description

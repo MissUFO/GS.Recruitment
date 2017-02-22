@@ -3,7 +3,7 @@
 @model Assignment
 @{
     Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
-    ViewBag.Title = Model.Id == Guid.Empty ? "New Assignment" : "Assignment";
+    ViewBag.Title = Model.Id == Guid.Empty ? "New Assignment" : "Assignment #"+ Model.Number;
 }
 
 <div class="row">
@@ -98,7 +98,6 @@
                     </div>
                     <div class="tab-pane fade" id="contact-panel">
                         <div class="panel-heading">
-                            Contacts
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -139,15 +138,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.Contacts)
+                                    @foreach (var item in Model.AssignmentContacts)
                                     {
                                         <tr class="odd gradeX">
-                                            <td><a href="@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))">@item.Name</a></td>
-                                            <td>@(item.Emails.Count > 0 ? item.Emails[0].EmailAddress : "")</td>
-                                            <td>@(item.Phones.Count > 0 ? item.Phones[0].PhoneNumber : "")</td>
-                                            <td>@(item.Experiences.Count > 0 ? item.Experiences[0].CompanyName : "")</td>
-                                            <td>@(item.Experiences.Count > 0 ? item.Experiences[0].JobTitle : "")</td>
-                                            <td>@(item.JobPreferences.Count > 0 ? item.JobPreferences[0].LastContactDate.ToString() : "")</td>
+                                            <td><a href="@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Contact.Id }))">@item.Contact.Name</a></td>
+                                            <td>@(item.Contact.Emails.Count > 0 ? item.Contact.Emails[0].EmailAddress : "")</td>
+                                            <td>@(item.Contact.Phones.Count > 0 ? item.Contact.Phones[0].PhoneNumber : "")</td>
+                                            <td>@(item.Contact.Experiences.Count > 0 ? item.Contact.Experiences[0].CompanyName : "")</td>
+                                            <td>@(item.Contact.Experiences.Count > 0 ? item.Contact.Experiences[0].JobTitle : "")</td>
+                                            <td>@(item.Contact.JobPreferences.Count > 0 ? item.Contact.JobPreferences[0].LastContactDate.ToString() : "")</td>
                                         </tr>
                                     }
                                 </tbody>

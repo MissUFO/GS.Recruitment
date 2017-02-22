@@ -125,5 +125,7 @@
     <Build Include="Stored Procedures\UserSettings_Get.sql" />
     <Build Include="Security\settings.sql" />
     <Build Include="Security\report.sql" />
+    <Build Include="Stored Procedures\Assignments_List_Task.sql" />
+    <Build Include="Stored Procedures\Users_List_Recruiters.sql" />
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@ namespace GS.Recruitment.Web.Controllers
         private AssignmentBusinessService AssignmentSrvc = new AssignmentBusinessService();
         private UserBusinessService UsersSrvc = new UserBusinessService();
         private TaskBusinessService TasksSrvc = new TaskBusinessService();
+        private ContactBusinessService ContactsSrvc = new ContactBusinessService();
 
         [AuthorizedUser]
         public ActionResult Index()
@@ -90,6 +91,15 @@ namespace GS.Recruitment.Web.Controllers
         [AuthorizedUser]
         public ActionResult AssignAllContacts(Guid? id)
         {
+            var contacts = ContactsSrvc.ListCandidates();
+
+            foreach(var itm in contacts)
+                AssignmentSrvc.AssignmentContact_AddEdit(new AssignmentContact()
+                {
+                    AssignmentId = id.Value,
+                    ContactId = itm.Id
+                });
+
             return RedirectToAction("AddEdit", new { id = id.Value });
         }
 

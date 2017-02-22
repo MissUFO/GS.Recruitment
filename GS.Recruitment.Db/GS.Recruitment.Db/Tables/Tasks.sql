@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [process].[Tasks] (
     [Id]          UNIQUEIDENTIFIER NOT NULL,
+    [Number]      BIGINT           IDENTITY (1, 1) NOT NULL,
     [Title]       NVARCHAR (1024)  NOT NULL,
     [Description] NVARCHAR (MAX)   NULL,
     [UserFromId]  UNIQUEIDENTIFIER NOT NULL,
@@ -12,6 +13,8 @@
     CONSTRAINT [PK__Tasks__3214EC0768FCA0D1] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Tasks_Users1] FOREIGN KEY ([UserToId]) REFERENCES [auth].[Users] ([Id]) ON DELETE CASCADE
 );
+
+
 
 
 GO

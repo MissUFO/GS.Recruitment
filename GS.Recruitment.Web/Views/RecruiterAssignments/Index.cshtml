@@ -44,6 +44,7 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Title</th>
                                     <th>UserFrom</th>
                                     <th>UserTo</th>
@@ -56,6 +57,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd gradeX" onclick="location.href = '@(Url.Action("AddEdit", "RecruiterAssignments", new { id = item.Id }))'">
+                                        <td>@item.Number</td>
                                         <td>@item.Title</td>
                                         <td>@item.UserFromLogin</td>
                                         <td>@item.UserToLogin</td>

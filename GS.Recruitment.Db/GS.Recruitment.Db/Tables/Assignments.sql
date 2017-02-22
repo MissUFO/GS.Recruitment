@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [process].[Assignments] (
     [Id]               UNIQUEIDENTIFIER NOT NULL,
+    [Number]           BIGINT           IDENTITY (1, 1) NOT NULL,
     [Title]            NVARCHAR (1024)  NOT NULL,
     [Description]      NVARCHAR (MAX)   NULL,
     [UserFromId]       UNIQUEIDENTIFIER NOT NULL,
@@ -11,6 +12,8 @@
     [ModifiedBy]       UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_Assignments] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 GO
