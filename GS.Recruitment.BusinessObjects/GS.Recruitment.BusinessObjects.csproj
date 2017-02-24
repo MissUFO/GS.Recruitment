@@ -55,6 +55,7 @@
     <Compile Include="Implementation\Education.cs" />
     <Compile Include="Implementation\Experience.cs" />
     <Compile Include="Implementation\JobPreference.cs" />
+    <Compile Include="Implementation\Dashboard.cs" />
     <Compile Include="Implementation\Phone.cs" />
     <Compile Include="Implementation\Email.cs" />
     <Compile Include="Implementation\Skill.cs" />

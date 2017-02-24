@@ -41,14 +41,15 @@
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
+                @using (Html.BeginForm("AddEdit", "RecruiterCandidates", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.Id)
+
                     <div class="tab-pane fade in active" id="contact-panel">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    @using (Html.BeginForm("AddEdit", "RecruiterCandidates", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                    {
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        @Html.HiddenFor(m => m.Id)
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
@@ -72,36 +73,187 @@
                                         </div>
 
                                         <div class="form-group">
+                                            @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.PostCode, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.PostCode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CityId, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(m => m.CityId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your city", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your country", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Emails, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Emails[0].EmailAddress, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Emails, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Phones, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Phones[0].PhoneNumber, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Phones, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="col-md-2 control-label"> </label>
                                             <div class="col-md-10">
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </div>
-                                    }
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="jobpreferences-panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JobPreferences[0].SalaryFrom, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.JobPreferences[0].SalaryFrom, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.JobPreferences[0].SalaryFrom, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JobPreferences[0].SalaryTo, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.JobPreferences[0].SalaryTo, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.JobPreferences[0].SalaryTo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JobPreferences[0].JobTitle, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.JobPreferences[0].JobTitle, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.JobPreferences[0].JobTitle, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JobPreferences[0].IsReadyForRelocation, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.CheckBoxFor(m => m.JobPreferences[0].IsReadyForRelocation, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.JobPreferences[0].IsReadyForRelocation, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CityId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.CityId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your city", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your country", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.JobPreferences[0].Description, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(m => m.JobPreferences[0].Description, new { @class = "form-control", rows = 5 })
+                                            @Html.ValidationMessageFor(m => m.JobPreferences[0].Description, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
 
 
-
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label"> </label>
+                                        <div class="col-md-10">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="experience-panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
 
 
-
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="education-panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
 
 
-
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="attachments-panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Attachments[0].Name, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(m => m.Attachments[0].Name, new { @class = "form-control", rows = 5 })
+                                            @Html.ValidationMessageFor(m => m.Attachments[0].Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label"> </label>
+                                        <div class="col-md-10">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
 
-
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                }
                 </div>
                 <!-- /Tab panes -->
 

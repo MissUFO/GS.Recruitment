@@ -22,7 +22,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             User user = new User();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_Get";
                 dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -42,7 +42,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             User user = new User();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_Login";
                 dataManager.Add("@Login", SqlDbType.NVarChar, ParameterDirection.Input, login);
@@ -62,7 +62,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangeStatus";
                 dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -83,7 +83,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_ChangePassword";
                 dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -104,7 +104,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_AddEdit";
                 dataManager.Add("@UserID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, user.UserId);
@@ -129,7 +129,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_Delete";
                 dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
@@ -148,7 +148,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<User> users = new List<User>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -167,7 +167,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<User> users = new List<User>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "auth.Users_List_Recruiters";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);

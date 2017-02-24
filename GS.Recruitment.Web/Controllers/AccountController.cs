@@ -36,17 +36,17 @@ namespace GS.Recruitment.Web.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
 
-            if (Request.IsAuthenticated)
-            {
-                var principal = this.User as UserCustomPrincipal;
-                if (principal != null)
-                {
-                    if (principal.IsInRole(RoleType.Administrator))
-                        return RedirectToAction("Index", "AdminDashboard");
-                    else
-                        return RedirectToAction("Index", "RecruiterDashboard");
-                }
-            }
+            //if (Request.IsAuthenticated)
+            //{
+            //    var principal = this.User as UserCustomPrincipal;
+            //    if (principal != null)
+            //    {
+            //        if (principal.IsInRole(RoleType.Administrator))
+            //            return RedirectToAction("Index", "AdminDashboard");
+            //        else
+            //            return RedirectToAction("Index", "RecruiterDashboard");
+            //    }
+            //}
             
             return View();
         }

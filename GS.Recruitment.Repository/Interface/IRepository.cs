@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GS.Recruitment.Repository.Interface
 {
     public interface IRepository<T>
     {
+        string ConnectionString { get; set; }
+
+        T Get(Guid id);
+        bool AddEdit(T entity);
+        List<T> List();
+        bool Delete(T entity);
     }
 }

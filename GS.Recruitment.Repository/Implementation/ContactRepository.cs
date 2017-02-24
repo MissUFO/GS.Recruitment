@@ -21,7 +21,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             Contact contact = new Contact();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "contact.Details_Get";
                 dataManager.Add("@ContactDetailId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -42,7 +42,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "contact.Details_AddEdit";
                 dataManager.Add("@ContactDetailId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.Id);
@@ -75,7 +75,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Contact> contacts = new List<Contact>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "contact.Details_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -94,7 +94,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Contact> contacts = new List<Contact>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "contact.Details_List_Candidates";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);

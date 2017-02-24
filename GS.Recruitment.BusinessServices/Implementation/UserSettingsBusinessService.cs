@@ -1,12 +1,13 @@
 ﻿using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Repository.Implementation;
 using System;
-using System.Collections.Generic;
 
 namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class UserSettingsBusinessService
     {
+        protected UserSettingsRepository repo = new UserSettingsRepository();
+
         public UserSettingsBusinessService()
         {
         }
@@ -16,7 +17,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public UserSettings Get(Guid userId)
         {
-            return UserSettingsRepository.Get(userId);
+            return repo.Get(userId);
         }
 
         /// <summary>
@@ -24,8 +25,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public bool AddEdit(UserSettings settings)
         {
-            return UserSettingsRepository.AddEdit(settings);
+            return repo.AddEdit(settings);
         }
-
     }
 }

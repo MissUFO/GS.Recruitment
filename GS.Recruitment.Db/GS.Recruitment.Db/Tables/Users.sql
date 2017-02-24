@@ -20,9 +20,13 @@
 
 
 
+
+
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Locked = 0,
    Active = 1', @level0type = N'SCHEMA', @level0name = N'auth', @level1type = N'TABLE', @level1name = N'Users', @level2type = N'COLUMN', @level2name = N'UserStatus';
+
+
 
 
 

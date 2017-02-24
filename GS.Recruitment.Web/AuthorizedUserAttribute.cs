@@ -3,6 +3,7 @@ using GS.Recruitment.BusinessObjects.Implementation;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace GS.Recruitment.Web
 {
@@ -11,34 +12,25 @@ namespace GS.Recruitment.Web
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
-            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
-            {
-                filterContext.Result = new RedirectResult("~/account/login");
-                return;
-            }
-
-            if (filterContext.Result is HttpUnauthorizedResult)
-            {
-                filterContext.Result = new RedirectResult("~/account/login");
-                return;
-            }
-
+            
             UserCustomPrincipal principal = new UserCustomPrincipal(System.Threading.Thread.CurrentPrincipal.Identity);
             if (principal == null || principal.UserId == Guid.Empty)
             {
+                FormsAuthentication.SignOut();
+
                 filterContext.Result = new RedirectResult("~/account/login");
                 return;
             }
 
-            var user = HttpContext.Current.User as UserCustomPrincipal;
-            if (user != null)
-            {
+            //var user = HttpContext.Current.User as UserCustomPrincipal;
+            //if (user != null)
+            //{
                 string pagePath = HttpContext.Current.Request.Path.ToLower();
 
                 if (pagePath.Contains("/home") || pagePath.Contains("/account"))
                     return;
 
-                if (user.IsInRole(RoleType.Administrator))
+                if (principal.IsInRole(RoleType.Administrator))
                 {
                     if (false == pagePath.Contains("/admin"))
                     {
@@ -47,7 +39,7 @@ namespace GS.Recruitment.Web
                         return;
                     }
                 }
-                if (user.IsInRole(RoleType.Recruiter))
+                if (principal.IsInRole(RoleType.Recruiter))
                 {
                     if (false == pagePath.Contains("/recruiter"))
                     {
@@ -56,7 +48,7 @@ namespace GS.Recruitment.Web
                         return;
                     }
                 }
-            }
+            //}
         }
     }
 }

@@ -127,5 +127,11 @@
     <Build Include="Security\report.sql" />
     <Build Include="Stored Procedures\Assignments_List_Task.sql" />
     <Build Include="Stored Procedures\Users_List_Recruiters.sql" />
+    <Build Include="Stored Procedures\Dashboard_Get_Recruiter.sql" />
+    <Build Include="Stored Procedures\Dashboard_Get_Admin.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment.Users.sql" />
+    <None Include="PostDeployment.Dictionaries.sql" />
   </ItemGroup>
 </Project>

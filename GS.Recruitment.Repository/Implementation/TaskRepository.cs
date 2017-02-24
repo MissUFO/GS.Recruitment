@@ -22,7 +22,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             Task task = new Task();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_Get";
                 dataManager.Add("@TaskID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -43,7 +43,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_AddEdit";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.Id);
@@ -72,7 +72,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -91,7 +91,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_List_UserFrom";
                 dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
@@ -111,7 +111,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "process.Tasks_List_UserTo";
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);

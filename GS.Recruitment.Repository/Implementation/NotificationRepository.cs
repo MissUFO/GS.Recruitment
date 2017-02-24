@@ -22,7 +22,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             Notification notification = new Notification();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "msg.Notifications_Get";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -43,7 +43,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "msg.Notifications_AddEdit";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, notification.Id);
@@ -72,7 +72,7 @@ namespace GS.Recruitment.Repository.Implementation
         {
             List<Notification> notifications = new List<Notification>();
 
-            using (DataManager dataManager = new DataManager(ConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
             {
                 dataManager.ExecuteString = "msg.Notifications_List";
                 dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
