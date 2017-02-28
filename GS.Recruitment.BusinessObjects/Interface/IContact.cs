@@ -18,15 +18,15 @@ namespace GS.Recruitment.BusinessObjects.Interface
 
         string PostCode { get; set; }
 
-        Guid CityId { get; set; }
+        Guid? CityId { get; set; }
 
         string CityName { get; set; }
 
-        Guid CountryId { get; set; }
+        Guid? CountryId { get; set; }
 
         string CountryName { get; set; }
 
-        DateTime Birthday { get; set; }
+        DateTime? Birthday { get; set; }
 
         DateTime CreatedOn { get; set; }
 

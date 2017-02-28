@@ -41,7 +41,7 @@
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                @using (Html.BeginForm("AddEdit", "RecruiterCandidates", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("AddEdit", "RecruiterCandidates", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
                 {
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(m => m.Id)
@@ -75,11 +75,14 @@
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
+                                                <div class="input-group date" id='ctrl-birthday'>
+                                                    @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
@@ -107,12 +110,12 @@
                                         <div class="form-group">
                                             @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your country", new { @class = "form-control" })
+                                                @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Countries, "Please select your country", new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        @*<div class="form-group">
                                             @Html.LabelFor(m => m.Emails, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
                                                 @Html.TextBoxFor(m => m.Emails[0].EmailAddress, new { @class = "form-control" })
@@ -126,7 +129,7 @@
                                                 @Html.TextBoxFor(m => m.Phones[0].PhoneNumber, new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(m => m.Phones, "", new { @class = "text-danger" })
                                             </div>
-                                        </div>
+                                        </div>*@
 
                                         <div class="form-group">
                                             <label class="col-md-2 control-label"> </label>
@@ -141,7 +144,7 @@
                     </div>
                     <div class="tab-pane fade" id="jobpreferences-panel">
                         <div class="panel-body">
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.JobPreferences[0].SalaryFrom, new { @class = "col-md-2 control-label" })
@@ -186,7 +189,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your country", new { @class = "form-control" })
+                                            @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Countries, "Please select your country", new { @class = "form-control" })
                                             @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -207,7 +210,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="experience-panel">
@@ -235,10 +238,10 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        @Html.LabelFor(m => m.Attachments[0].Name, new { @class = "col-md-2 control-label" })
+                                        @Html.LabelFor(m => m.Attachments, new { @class = "col-md-2 control-label" })
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(m => m.Attachments[0].Name, new { @class = "form-control", rows = 5 })
-                                            @Html.ValidationMessageFor(m => m.Attachments[0].Name, "", new { @class = "text-danger" })
+                                            <input type="file" class="form-control" name="attachments" multiple />
+                                            @Html.ValidationMessageFor(m => m.Attachments, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
@@ -256,9 +259,18 @@
                 }
                 </div>
                 <!-- /Tab panes -->
-
             </div>
-
         </div>
     </div>
 </div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#ctrl-birthday').datetimepicker({
+                viewMode: 'years',
+                format: 'DD/MM/YYYY'
+            });
+        });
+    </script>
+}

@@ -26,15 +26,15 @@ namespace GS.Recruitment.BusinessObjects.Implementation
         [DataMember]
         public string PostCode { get; set; }
         [DataMember]
-        public Guid CityId { get; set; }
+        public Guid? CityId { get; set; }
         [DataMember]
         public string CityName { get; set; }
         [DataMember]
-        public Guid CountryId { get; set; }
+        public Guid? CountryId { get; set; }
         [DataMember]
         public string CountryName { get; set; }
         [DataMember]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
         [DataMember]
         public DateTime CreatedOn { get; set; }
         [DataMember]
