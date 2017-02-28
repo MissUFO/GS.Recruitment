@@ -2,6 +2,8 @@
 				   @Id uniqueidentifier
 				  ,@Title nvarchar(1024)
 				  ,@Description nvarchar(max)
+				  ,@StartDate datetime = null
+				  ,@EndDate datetime = null
 				  ,@UserFromId uniqueidentifier
 				  ,@UserToId uniqueidentifier 
 				  ,@TaskStatus tinyint = 0
@@ -22,6 +24,8 @@ DECLARE @return_value			 INT
         UPDATE [process].[Tasks]
             SET	   [Title] = @Title
 				  ,[Description] = @Description
+				  ,[StartDate] = ISNULL(@StartDate, GETDATE())
+				  ,[EndDate] = @EndDate
 				  ,[UserFromId] = @UserFromId
 				  ,[UserToId] = @UserToId
 				  ,[TaskStatus] = @TaskStatus
@@ -41,6 +45,8 @@ DECLARE @return_value			 INT
            ([Id]
            ,[Title]
            ,[Description]
+		   ,[StartDate]
+		   ,[EndDate]
            ,[UserFromId]
            ,[UserToId]
            ,[TaskStatus]
@@ -52,6 +58,8 @@ DECLARE @return_value			 INT
            (@Id
            ,@Title
            ,@Description
+		   ,ISNULL(@StartDate, GETDATE())
+		   ,@EndDate
            ,@UserFromId
            ,@UserToId
            ,@TaskStatus

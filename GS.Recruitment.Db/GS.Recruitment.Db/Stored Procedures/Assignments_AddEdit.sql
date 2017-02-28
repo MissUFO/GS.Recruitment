@@ -3,6 +3,8 @@
 				   ,@Id uniqueidentifier
 				   ,@Title nvarchar(1024)
 				   ,@Description nvarchar(max)
+				   ,@StartDate datetime = null
+				   ,@EndDate datetime = null
 				   ,@UserFromId uniqueidentifier
 				   ,@UserToId uniqueidentifier
 				   ,@AssignmentStatus tinyint = 0
@@ -23,6 +25,8 @@ DECLARE @return_value			 INT
         UPDATE [process].[Assignments]
             SET	   [Title] = @Title
 				  ,[Description] = @Description
+				  ,[StartDate] =  ISNULL(@StartDate, GETDATE())
+				  ,[EndDate] = @EndDate
 				  ,[UserFromId] = @UserFromId
 				  ,[UserToId] = @UserToId
 				  ,[AssignmentStatus] = @AssignmentStatus
@@ -42,6 +46,8 @@ DECLARE @return_value			 INT
           ( [Id]
            ,[Title]
            ,[Description]
+		   ,[StartDate]
+		   ,[EndDate]
            ,[UserFromId]
            ,[UserToId]
            ,[AssignmentStatus]
@@ -53,6 +59,8 @@ DECLARE @return_value			 INT
            (@Id
            ,@Title
            ,@Description
+		   ,ISNULL(@StartDate, GETDATE())
+		   ,@EndDate
            ,@UserFromId
            ,@UserToId
            ,@AssignmentStatus

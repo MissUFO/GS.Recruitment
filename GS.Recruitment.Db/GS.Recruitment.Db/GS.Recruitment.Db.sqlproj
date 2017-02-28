@@ -129,6 +129,30 @@
     <Build Include="Stored Procedures\Users_List_Recruiters.sql" />
     <Build Include="Stored Procedures\Dashboard_Get_Recruiter.sql" />
     <Build Include="Stored Procedures\Dashboard_Get_Admin.sql" />
+    <Build Include="Stored Procedures\Skills_List.sql" />
+    <Build Include="Stored Procedures\Skills_Get.sql" />
+    <Build Include="Stored Procedures\Skills_Delete.sql" />
+    <Build Include="Stored Procedures\Skills_AddEdit.sql" />
+    <Build Include="Stored Procedures\JobTitles_List.sql" />
+    <Build Include="Stored Procedures\JobTitles_Get.sql" />
+    <Build Include="Stored Procedures\JobTitles_Delete.sql" />
+    <Build Include="Stored Procedures\JobTitles_AddEdit.sql" />
+    <Build Include="Stored Procedures\Industries_List.sql" />
+    <Build Include="Stored Procedures\Industries_Get.sql" />
+    <Build Include="Stored Procedures\Industries_Delete.sql" />
+    <Build Include="Stored Procedures\Industries_AddEdit.sql" />
+    <Build Include="Stored Procedures\Countries_List.sql" />
+    <Build Include="Stored Procedures\Countries_Get.sql" />
+    <Build Include="Stored Procedures\Countries_Delete.sql" />
+    <Build Include="Stored Procedures\Countries_AddEdit.sql" />
+    <Build Include="Stored Procedures\Companies_List.sql" />
+    <Build Include="Stored Procedures\Companies_Get.sql" />
+    <Build Include="Stored Procedures\Companies_Delete.sql" />
+    <Build Include="Stored Procedures\Companies_AddEdit.sql" />
+    <Build Include="Stored Procedures\Cities_List.sql" />
+    <Build Include="Stored Procedures\Cities_Get.sql" />
+    <Build Include="Stored Procedures\Cities_Delete.sql" />
+    <Build Include="Stored Procedures\Cities_AddEdit.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.Users.sql" />

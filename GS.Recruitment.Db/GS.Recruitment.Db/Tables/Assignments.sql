@@ -3,6 +3,8 @@
     [Number]           BIGINT           IDENTITY (1, 1) NOT NULL,
     [Title]            NVARCHAR (1024)  NOT NULL,
     [Description]      NVARCHAR (MAX)   NULL,
+    [StartDate]        DATETIME         CONSTRAINT [DF_Assignments_StartDate] DEFAULT (getdate()) NULL,
+    [EndDate]          DATETIME         NULL,
     [UserFromId]       UNIQUEIDENTIFIER NOT NULL,
     [UserToId]         UNIQUEIDENTIFIER NOT NULL,
     [AssignmentStatus] TINYINT          CONSTRAINT [DF_Assignments_AssignmentStatus] DEFAULT ((0)) NOT NULL,
@@ -12,6 +14,8 @@
     [ModifiedBy]       UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_Assignments] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 

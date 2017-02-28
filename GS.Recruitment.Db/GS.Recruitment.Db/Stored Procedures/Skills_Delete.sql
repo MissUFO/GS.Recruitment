@@ -1,0 +1,9 @@
+﻿CREATE PROCEDURE [enum].[Skills_Delete]
+				 @Id UNIQUEIDENTIFIER
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DELETE FROM [enum].[Skills] WHERE Id=@Id
+						
+END

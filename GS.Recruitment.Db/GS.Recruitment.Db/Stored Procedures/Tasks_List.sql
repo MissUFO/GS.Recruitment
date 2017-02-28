@@ -8,6 +8,8 @@ BEGIN
 							  ,task.Number
 							  ,task.Title
 							  ,task.Description
+							  ,task.StartDate
+							  ,task.EndDate
 							  ,task.UserFromId
 							  ,userfrom.Login as UserFromLogin
 							  ,task.UserToId
@@ -23,6 +25,8 @@ BEGIN
 									,ta.TaskId
 									,assignment.Title
 									,assignment.Description
+									,assignment.StartDate
+									,assignment.EndDate
 									,assignment.UserFromId
 									,a_usrfrom.Login as UserFromLogin
 									,assignment.UserToId

@@ -3,6 +3,8 @@
     [Number]      BIGINT           IDENTITY (1, 1) NOT NULL,
     [Title]       NVARCHAR (1024)  NOT NULL,
     [Description] NVARCHAR (MAX)   NULL,
+    [StartDate]   DATETIME         CONSTRAINT [DF_Tasks_StartDate] DEFAULT (getdate()) NULL,
+    [EndDate]     DATETIME         NULL,
     [UserFromId]  UNIQUEIDENTIFIER NOT NULL,
     [UserToId]    UNIQUEIDENTIFIER NOT NULL,
     [TaskStatus]  TINYINT          CONSTRAINT [DF_Tasks_TaskStatus] DEFAULT ((0)) NOT NULL,
@@ -13,6 +15,8 @@
     CONSTRAINT [PK__Tasks__3214EC0768FCA0D1] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Tasks_Users1] FOREIGN KEY ([UserToId]) REFERENCES [auth].[Users] ([Id]) ON DELETE CASCADE
 );
+
+
 
 
 

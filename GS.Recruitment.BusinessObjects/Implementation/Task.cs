@@ -21,26 +21,43 @@ namespace GS.Recruitment.BusinessObjects.Implementation
 
         [DataMember]
         public string Title { get; set; }
+
         [DataMember]
         public string Description { get; set; }
+
+        [DataMember]
+        public DateTime? StartDate { get; set; }
+
+        [DataMember]
+        public DateTime? EndDate { get; set; }
+
         [DataMember]
         public Guid UserFromId { get; set; }
+
         [DataMember]
         public string UserFromLogin { get; set; }
+
         [DataMember]
         public Guid UserToId { get; set; }
+
         [DataMember]
         public string UserToLogin { get; set; }
+
         [DataMember]
         public TaskStatus TaskStatus { get; set; }
+
         [DataMember]
         public DateTime CreatedOn { get; set; }
+
         [DataMember]
         public DateTime ModifiedOn { get; set; }
+
         [DataMember]
         public Guid CreatedBy { get; set; }
+
         [DataMember]
         public Guid ModifiedBy { get; set; }
+
         [DataMember]
         public List<Assignment> Assignments { get { return _assignments; } set { _assignments = value; } }
         private List<Assignment> _assignments = new List<Assignment>();
@@ -53,6 +70,8 @@ namespace GS.Recruitment.BusinessObjects.Implementation
             this.Name = xml.Attribute("Title").ToType<string>();
             this.Title = xml.Attribute("Title").ToType<string>();
             this.Description = xml.Attribute("Description").ToType<string>();
+            this.StartDate = xml.Attribute("StartDate").ToType<DateTime>();
+            this.EndDate = xml.Attribute("EndDate").ToType<DateTime>();
             this.UserFromId = xml.Attribute("UserFromId").ToType<Guid>();
             this.UserFromLogin = xml.Attribute("UserFromLogin").ToType<string>();
             this.UserToId = xml.Attribute("UserToId").ToType<Guid>();

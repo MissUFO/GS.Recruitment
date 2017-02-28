@@ -49,6 +49,10 @@ namespace GS.Recruitment.Repository.Implementation
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.Id);
                 dataManager.Add("@Title", SqlDbType.NVarChar, ParameterDirection.Input, assignment.Title);
                 dataManager.Add("@Description", SqlDbType.NVarChar, ParameterDirection.Input, assignment.Description);
+                if (assignment.StartDate.HasValue)
+                    dataManager.Add("@StartDate", SqlDbType.DateTime, ParameterDirection.Input, assignment.StartDate.Value);
+                if (assignment.EndDate.HasValue)
+                    dataManager.Add("@EndDate", SqlDbType.DateTime, ParameterDirection.Input, assignment.EndDate.Value);
                 dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.UserFromId);
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.UserToId);
                 dataManager.Add("@AssignmentStatus", SqlDbType.TinyInt, ParameterDirection.Input, (int)assignment.AssignmentStatus);

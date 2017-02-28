@@ -10,6 +10,8 @@ BEGIN
 						,ta.TaskId
 						,assignment.Title
 						,assignment.Description
+						,assignment.StartDate
+						,assignment.EndDate
 						,assignment.UserFromId
 						,a_usrfrom.Login as UserFromLogin
 						,assignment.UserToId
@@ -35,7 +37,7 @@ BEGIN
 									,detail.CreatedBy
 									,detail.ModifiedBy
 									,(SELECT(SELECT	 
-												email.Id
+											 email.Id
 											,email.Email
 											,email.IsPreferred
 											FROM [contact].[Emails] AS email
@@ -43,7 +45,7 @@ BEGIN
 											FOR XML RAW('Email'), TYPE)
 										FOR XML PATH('Emails'),TYPE)
 									,(SELECT(SELECT	 
-												phone.Id
+											 phone.Id
 											,phone.Phone
 											,phone.IsPreferred
 											FROM [contact].[Phones] AS phone
@@ -51,7 +53,7 @@ BEGIN
 											FOR XML RAW('Phone'), TYPE)
 										FOR XML PATH('Phones'),TYPE)
 									,(SELECT(SELECT	 
-												experience.Id
+											 experience.Id
 											,experience.CompanyId
 											,ex_company.Name as CompanyName
 											,experience.JobTitleId
@@ -72,7 +74,7 @@ BEGIN
 											FOR XML RAW('Experience'), TYPE)
 										FOR XML PATH('Experiences'),TYPE)
 									,(SELECT(SELECT	 
-												preferences.Id
+											 preferences.Id
 											,preferences.SalaryFrom
 											,preferences.SalaryTo
 											,preferences.JobTitleId
