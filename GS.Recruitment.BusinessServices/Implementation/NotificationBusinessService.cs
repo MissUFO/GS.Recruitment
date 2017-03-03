@@ -7,6 +7,8 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class NotificationBusinessService
     {
+        private NotificationRepository repo = new NotificationRepository();
+
         public NotificationBusinessService()
         {
         }
@@ -16,7 +18,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public Notification Get(Guid id)
         {
-            return NotificationRepository.Get(id);
+            return repo.Get(id);
         }
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// <param name="task"></param>
         public bool AddEdit(Notification notification)
         {
-            return NotificationRepository.AddEdit(notification);
+            return repo.AddEdit(notification);
         }
 
         /// <summary>
@@ -33,9 +35,27 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Notification> List(Guid userId)
         {
-            return NotificationRepository.List(userId);
+            return repo.List(userId, null);
         }
-        
+
+        /// <summary>
+        /// Delete notification
+        /// </summary>
+        /// <param name="task"></param>
+        public bool Delete(Notification notification)
+        {
+            return repo.Delete(notification);
+        }
+
+        /// <summary>
+        /// Receive notification
+        /// </summary>
+        /// <param name="task"></param>
+        public bool Receive(Notification notification)
+        {
+            notification.IsReceived = true;
+            return repo.AddEdit(notification);
+        }
 
     }
 }

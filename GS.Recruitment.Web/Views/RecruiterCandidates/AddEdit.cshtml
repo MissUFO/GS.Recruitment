@@ -99,19 +99,27 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        @*<div class="form-group">
                                             @Html.LabelFor(m => m.CityId, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
                                                 @Html.DropDownListFor(m => m.CityId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Please select your city", new { @class = "form-control" })
                                                 @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
                                             </div>
+                                        </div>*@
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CityName, new { @class = "col-md-2 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.TextBoxFor(m => m.CityName, new { @class = "form-control autocomplete" })
+                                            @Html.ValidationMessageFor(m => m.CityName, "", new { @class = "text-danger" })
                                         </div>
+                                    </div>
 
                                         <div class="form-group">
-                                            @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
+                                            @Html.LabelFor(m => m.CountryName, new { @class = "col-md-2 control-label" })
                                             <div class="col-md-10">
-                                                @Html.DropDownListFor(m => m.CountryId, (IEnumerable<SelectListItem>)ViewBag.Countries, "Please select your country", new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+                                                @Html.TextBoxFor(m => m.CountryName, new { @class = "form-control autocomplete" })
+                                                @Html.ValidationMessageFor(m => m.CountryName, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
@@ -271,6 +279,39 @@
                 viewMode: 'years',
                 format: 'DD/MM/YYYY'
             });
+
+            $("#CityName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/RecruiterCandidates/CitiesSearch",
+                        type: "POST", dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.text };
+                            }));
+                        }
+                    });
+                },
+                messages: { noResults: "", results: "" }
+            });
+
+            $("#CountryName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/RecruiterCandidates/CountriesSearch",
+                        type: "POST", dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.text };
+                            }));
+                        }
+                    });
+                },
+                messages: { noResults: "", results: "" }
+            });
+
         });
     </script>
 }

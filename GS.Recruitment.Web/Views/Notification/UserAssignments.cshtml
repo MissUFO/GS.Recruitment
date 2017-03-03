@@ -1,0 +1,34 @@
+﻿@using GS.Recruitment.BusinessObjects.Implementation
+@using GS.Recruitment.BusinessObjects.Enum
+@model List<Notification>
+
+<li class="dropdown">
+    <!-- .dropdown-alerts -->
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-messages">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="@Url.Action("AddEdit", "RecruiterAssignments", new { id = item.EntityId })">
+                    <div>
+                        <strong>New assignment</strong>
+                        <span class="pull-right text-muted">
+                            <em>@item.ReceivedOn.ToString()</em>
+                        </span>
+                    </div>
+                    <div>@item.Subject</div>
+                </a>
+            </li>
+            <li class="divider"></li>
+        }
+        <li>
+            <a class="text-center" href="@Url.Action("Index", "RecruiterAssignments")">
+                <strong>See All Assignments</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <!-- /.dropdown-alerts -->
+</li>

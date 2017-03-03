@@ -1,6 +1,7 @@
 ﻿using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+using GS.Recruitment.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,21 +9,24 @@ using System.Xml.Linq;
 
 namespace GS.Recruitment.Repository.Implementation
 {
-	public class NotificationRepository
+	public class NotificationRepository : IRepository<Notification>
     {
-		public NotificationRepository()
+        public string ConnectionString { get; set; }
+
+        public NotificationRepository()
 		{
-		}
+            ConnectionString = WebConfigConnectionString.RecruitmentConnection;
+        }
 
 
         /// <summary>
         /// Get notification by id
         /// </summary>
-        public static Notification Get(Guid id)
+        public Notification Get(Guid id)
         {
             Notification notification = new Notification();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "msg.Notifications_Get";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -38,12 +42,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// AddEdit notification
         /// </summary>
-        /// <param name="notification"></param>
-        public static bool AddEdit(Notification notification)
+        public bool AddEdit(Notification notification)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "msg.Notifications_AddEdit";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, notification.Id);
@@ -66,16 +69,19 @@ namespace GS.Recruitment.Repository.Implementation
         }
 
         /// <summary>
-        /// Get notifications list
+        /// Get notifications list by user id
         /// </summary>
-        public static List<Notification> List(Guid userId)
+        public List<Notification> List(Guid? userId, bool? isReceived)
         {
             List<Notification> notifications = new List<Notification>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "msg.Notifications_List";
-                dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
+                if(userId.HasValue)
+                    dataManager.Add("@UserId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
+                if(isReceived.HasValue)
+                    dataManager.Add("@IsReceived", SqlDbType.Bit, ParameterDirection.Input, isReceived);
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
                 dataManager.ExecuteReader();
                 XElement xmlOut = XElement.Parse(dataManager["@Xml"].Value.ToString());
@@ -85,5 +91,25 @@ namespace GS.Recruitment.Repository.Implementation
             return notifications;
         }
 
+        /// <summary>
+        /// Get all notifications
+        /// </summary>
+        public List<Notification> List()
+        {
+            return List(null, false);
+        }
+
+        public bool Delete(Notification entity)
+        {
+            using (DataManager dataManager = new DataManager(ConnectionString))
+            {
+                dataManager.ExecuteString = "msg.Notifications_Delete";
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, entity.Id);
+                dataManager.ExecuteNonQuery();
+            }
+
+            return true;
+        }
+        
     }
 }

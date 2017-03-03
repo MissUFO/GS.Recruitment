@@ -13,8 +13,6 @@
     <link href="~/Content/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/site.controlpanel.css" id="stylesheet">
-    <!-- Morris Charts CSS 
-    <link href="~/Content/morris.css" rel="stylesheet">-->
     <!-- Custom Fonts -->
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -28,10 +26,10 @@
             @Html.Partial("_HeaderControlPanel")
             <!-- /.header-->
             <!-- navbar top-->
-            @Html.Partial("_NavBarControlPanel")
+            @Html.Partial("_NavBarTopControlPanel")
             <!-- /.navbar top-->
             <!-- navbar right-->
-            @Html.Partial("_NavBarRightControlPanel")
+            @Html.Partial("_NavBarLeftControlPanel")
             <!-- /.navbar right-->
         </nav>
             <div id="page-wrapper">
@@ -46,15 +44,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-    <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    @Scripts.Render("~/bundles/menu")
+    @*<script type="text/javascript" src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="~/Scripts/metisMenu.min.js"></script>
-    <!-- Morris Charts JavaScript 
-    <script src="~/Scripts/raphael.min.js"></script>
-    <script src="~/Scripts/morris.min.js"></script>
-    <script src="~/Scripts/morris-data.js"></script>-->
+    <!-- Metis Menu Plugin JavaScript 
+    <script src="~/Scripts/metisMenu.min.js"></script>-->
+   
     <!-- Custom Theme JavaScript -->
     <script src="~/Scripts/controlpanel.js"></script>
 

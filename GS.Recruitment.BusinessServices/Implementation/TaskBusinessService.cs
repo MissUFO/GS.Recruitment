@@ -7,8 +7,10 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class TaskBusinessService
     {
+        protected NotificationBusinessService notification { get; set; }
         public TaskBusinessService()
         {
+            notification = new NotificationBusinessService();
         }
 
         /// <summary>

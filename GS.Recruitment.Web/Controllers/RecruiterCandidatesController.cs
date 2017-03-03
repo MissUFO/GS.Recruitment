@@ -11,13 +11,20 @@ namespace GS.Recruitment.Web.Controllers
 {
     public class RecruiterCandidatesController : Controller
     {
-        private ContactBusinessService ContactSrvc = new ContactBusinessService();
-        private DictionaryBusinessService DictionarySrvc = new DictionaryBusinessService();
+        private ContactBusinessService contactSrvc = new ContactBusinessService();
+        private DictionaryBusinessService dictionarySrvc = new DictionaryBusinessService();
+
+        public static List<DictionaryItem> citiesItems{get;set;}
+        public static List<DictionaryItem> countriesItems { get; set; }
+        public static List<DictionaryItem> jobTitlesItems { get; set; }
+        public static List<DictionaryItem> inductriesItems { get; set; }
+        public static List<DictionaryItem> companiesItems { get; set; }
+        public static List<DictionaryItem> skillsItems { get; set; }
 
         [AuthorizedUser]
         public ActionResult Index()
         {
-            List<Contact> model = ContactSrvc.ListCandidates();
+            List<Contact> model = contactSrvc.ListCandidates();
 
             return View(model);
         }
@@ -28,10 +35,8 @@ namespace GS.Recruitment.Web.Controllers
         {
             var model = new Contact();
             if (id.HasValue)
-                model = ContactSrvc.Get(id.Value);
-
-            InitViewBags(model);
-
+                model = contactSrvc.Get(id.Value);
+            
             return View(model);
         }
 
@@ -50,7 +55,7 @@ namespace GS.Recruitment.Web.Controllers
                     }
                 }
 
-                result = ContactSrvc.AddEdit(model);
+                result = contactSrvc.AddEdit(model);
             }
             catch (Exception ex)
             {
@@ -60,54 +65,92 @@ namespace GS.Recruitment.Web.Controllers
             if (result)
                 return RedirectToAction("Index");
             else
-            {
-                InitViewBags(model);
                 return View(model);
-            }
         }
 
-        private void InitViewBags(Contact model)
+        [HttpPost]
+        public JsonResult CitiesSearch(string term)
         {
-            ViewBag.Cities = CitiesSelectListItems(model.CityId);
-            ViewBag.Countries = CountriesSelectListItems(model.CountryId);
-            ViewBag.JobTitles = JobTitlesSelectListItems(null);
-            ViewBag.Industries = IndustriesSelectListItems(null);
-            ViewBag.Skills = SkillsSelectListItems(null);
+            if(citiesItems == null || citiesItems.Count == 0)
+                citiesItems = dictionarySrvc.List(Dictionaries.Cities.ToString());
+
+            var result = (from r in citiesItems
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new
+                          {
+                              text = r.Name
+                          }
+                         ).Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private List<SelectListItem> CitiesSelectListItems(Guid? selectedId)
+        [HttpPost]
+        public JsonResult CountriesSearch(string term)
         {
-            var list = DictionarySrvc.List(Dictionaries.Cities.ToString());
+            if (countriesItems == null || countriesItems.Count == 0)
+                countriesItems = dictionarySrvc.List(Dictionaries.Countries.ToString());
 
-            return list.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.Id.ToString(), Selected = (selectedId.HasValue && itm.Id == selectedId.Value) }).ToList();
+            var result = (from r in countriesItems
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new
+                          {
+                              text = r.Name
+                          }
+                         ).Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private List<SelectListItem> CountriesSelectListItems(Guid? selectedId)
+        [HttpPost]
+        public JsonResult JobTitlesSearch(string term)
         {
-            var list = DictionarySrvc.List(Dictionaries.Countries.ToString());
+            if (jobTitlesItems == null || jobTitlesItems.Count == 0)
+                jobTitlesItems = dictionarySrvc.List(Dictionaries.JobTitles.ToString());
 
-            return list.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.Id.ToString(), Selected = (selectedId.HasValue && itm.Id == selectedId.Value) }).ToList();
+            var result = (from r in jobTitlesItems
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new
+                          {
+                              text = r.Name
+                          }
+                         ).Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private List<SelectListItem> JobTitlesSelectListItems(Guid? selectedId)
+        [HttpPost]
+        public JsonResult IndustriesSearch(string term)
         {
-            var list = DictionarySrvc.List(Dictionaries.JobTitles.ToString());
+            if (inductriesItems == null || inductriesItems.Count == 0)
+                inductriesItems = dictionarySrvc.List(Dictionaries.Industries.ToString());
 
-            return list.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.Id.ToString(), Selected = (selectedId.HasValue && itm.Id == selectedId.Value) }).ToList();
+            var result = (from r in inductriesItems
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new
+                          {
+                              text = r.Name
+                          }
+                         ).Distinct();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        private List<SelectListItem> IndustriesSelectListItems(Guid? selectedId)
+        [HttpPost]
+        public JsonResult SkillsSearch(string term)
         {
-            var list = DictionarySrvc.List(Dictionaries.Industries.ToString());
+            if (skillsItems == null || skillsItems.Count == 0)
+                skillsItems = dictionarySrvc.List(Dictionaries.Skills.ToString());
 
-            return list.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.Id.ToString(), Selected = (selectedId.HasValue && itm.Id == selectedId.Value) }).ToList();
-        }
+            var result = (from r in skillsItems
+                          where r.Name.ToLower().Contains(term.ToLower())
+                          select new
+                          {
+                              text = r.Name
+                          }
+                         ).Distinct();
 
-        private List<SelectListItem> SkillsSelectListItems(Guid? selectedId)
-        {
-            var list = DictionarySrvc.List(Dictionaries.Skills.ToString());
-
-            return list.Select(itm => new SelectListItem() { Text = itm.Name, Value = itm.Id.ToString(), Selected = (selectedId.HasValue && itm.Id == selectedId.Value) }).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
     }
