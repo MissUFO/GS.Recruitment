@@ -8,13 +8,13 @@
     <meta name="robots" content="all,follow">
 
     <!-- Bootstrap Core CSS -->
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="~/Content/metisMenu.min.css" rel="stylesheet">
+    <link href="/Content/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/Content/site.controlpanel.css" id="stylesheet">
+    <link rel="stylesheet" href="/Content/site.controlpanel.css" id="stylesheet">
     <!-- Custom Fonts -->
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link rel="shortcut icon" href="/favicon.ico">
 </head>
@@ -45,14 +45,9 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     @Scripts.Render("~/bundles/menu")
-    @*<script type="text/javascript" src="~/Scripts/moment.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
-
-    <!-- Metis Menu Plugin JavaScript 
-    <script src="~/Scripts/metisMenu.min.js"></script>-->
    
     <!-- Custom Theme JavaScript -->
-    <script src="~/Scripts/controlpanel.js"></script>
+    <script src="/Scripts/controlpanel.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>
