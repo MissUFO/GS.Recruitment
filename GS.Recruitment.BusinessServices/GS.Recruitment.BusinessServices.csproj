@@ -35,6 +35,7 @@
     <Compile Include="Implementation\ContactBusinessService.cs" />
     <Compile Include="Implementation\DashboardBusinessService.cs" />
     <Compile Include="Implementation\DictionaryBusinessService.cs" />
+    <Compile Include="Implementation\ExceptionsBusinessService.cs" />
     <Compile Include="Implementation\UserSettingsBusinessService.cs" />
     <Compile Include="Implementation\NotificationBusinessService.cs" />
     <Compile Include="Implementation\TaskBusinessService.cs" />

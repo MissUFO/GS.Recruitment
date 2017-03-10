@@ -269,6 +269,7 @@
     <Content Include="Fonts\themify.eot" />
     <Content Include="Fonts\themify.ttf" />
     <Content Include="Fonts\themify.woff" />
+    <Content Include="Scripts\datatables.custom.js" />
     <Content Include="Scripts\datatables-responsive\dataTables.responsive.scss" />
     <Content Include="Scripts\datatables\images\Sorting icons.psd" />
     <Content Include="Fonts\fontawesome-webfont.woff2" />

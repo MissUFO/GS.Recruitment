@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Enum\AssignmentContactStatus.cs" />
     <Compile Include="Enum\NotificationEntityTypes.cs" />
+    <Compile Include="Enum\ExceptionType.cs" />
     <Compile Include="Enum\RoleType.cs" />
     <Compile Include="Enum\AssignmentStatus.cs" />
     <Compile Include="Enum\NotificationTypes.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Implementation\Assignment.cs" />
     <Compile Include="Implementation\Attachment.cs" />
     <Compile Include="Implementation\Contact.cs" />
+    <Compile Include="Implementation\SysException.cs" />
     <Compile Include="Implementation\DictionaryItem.cs" />
     <Compile Include="Implementation\Education.cs" />
     <Compile Include="Implementation\Experience.cs" />
