@@ -86,14 +86,14 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Delete exception from DB
         /// </summary>
-        public bool Delete(SysException entity)
+        public bool Delete(Guid id)
         {
             bool result = false;
 
             using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "log.Exceptions_Delete";
-                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, entity.Id);
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
                 dataManager.ExecuteNonQuery();
 
                 result = true;
@@ -101,5 +101,6 @@ namespace GS.Recruitment.Repository.Implementation
 
             return result;
         }
+        
     }
 }

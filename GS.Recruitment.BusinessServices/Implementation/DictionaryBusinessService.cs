@@ -7,36 +7,37 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class DictionaryBusinessService
     {
-        protected DictionaryRepository repo = new DictionaryRepository();
+        protected DictionaryRepository dataRepository { get; set; }
 
         public DictionaryBusinessService()
         {
+            dataRepository = new DictionaryRepository();
         }
 
         public DictionaryItem Get(string name, Guid id)
         {
-            return repo.Get(name, id);
+            return dataRepository.Get(name, id);
         }
 
         public bool AddEdit(string name, DictionaryItem entity)
         {
-            return repo.AddEdit(name, entity);
+            return dataRepository.AddEdit(name, entity);
         }
 
 
         public List<DictionaryItem> List(string name)
         {
-            return repo.List(name);
+            return dataRepository.List(name);
         }
 
         public List<DictionaryItem> List(string name, Guid parentId)
         {
-            return repo.List(name, parentId);
+            return dataRepository.List(name, parentId);
         }
 
         public bool Delete(string name, DictionaryItem entity)
         {
-            return repo.Delete(name, entity);
+            return dataRepository.Delete(name, entity);
         }
        
     }

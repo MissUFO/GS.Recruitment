@@ -68,6 +68,24 @@ namespace GS.Recruitment.Web.Controllers
                 return View(model);
         }
 
+        [AuthorizedUser]
+        [HttpPost]
+        public ActionResult Delete(List<Guid> IsSelected)
+        {
+            try
+            {
+                foreach(var id in IsSelected)
+                    contactSrvc.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+             return RedirectToAction("Index");
+            
+        }
+
         [HttpPost]
         public JsonResult CitiesSearch(string term)
         {

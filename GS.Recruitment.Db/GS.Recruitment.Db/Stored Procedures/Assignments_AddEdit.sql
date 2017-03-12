@@ -72,6 +72,18 @@ DECLARE @return_value			 INT
 	INSERT INTO [process].[TaskAssignments] ([Id], [TaskId], [AssignmentId], [CreatedOn], [CreatedBy])
     VALUES (NEWID(), @TaskId, @Id, GETDATE(), @CreatedBy)
 
+	-- Create Notification item
+	EXEC [msg].[Notifications_AddEdit]
+		@Id = NEWID,
+		@Subject = @Title,
+		@Message = @Description,
+		@NotificationType = 0,
+		@UserId = @UserToId,
+		@EntityId = @Id,
+		@EntityType = 1,
+		@CreatedOn = GETDATE,
+		@IsReceived = 0
+
     END
 
 END

@@ -68,6 +68,19 @@ DECLARE @return_value			 INT
            ,@CreatedBy
            ,@ModifiedBy)
 
+
+		   -- Create Notification item
+	EXEC [msg].[Notifications_AddEdit]
+		@Id = NEWID,
+		@Subject = @Title,
+		@Message = @Description,
+		@NotificationType = 0,
+		@UserId = @UserToId,
+		@EntityId = @Id,
+		@EntityType = 0,
+		@CreatedOn = GETDATE,
+		@IsReceived = 0
+
     END
 
 END

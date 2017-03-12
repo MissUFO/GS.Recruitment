@@ -2,97 +2,102 @@
 @using GS.Recruitment.BusinessObjects.Enum
 @model List<Contact>
 
-    @{
-        Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
-        ViewBag.Title = "Candidates";
-    }
+@{
+    Layout = "~/Views/Shared/_LayoutControlPanel.cshtml";
+    ViewBag.Title = "Candidates";
+}
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">@ViewBag.Title</h1>
-        </div>
-        <!-- /.col-lg-12 -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
     </div>
-    <!-- /.row -->
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+@using (Html.BeginForm("Delete", "RecruiterCandidates", FormMethod.Post, new { @class = "form-horizontal", id = "deleteForm", name = "deleteForm", role = "form" }))
+{
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Candidates and contacts management
                     <div class="pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-cog fa-fw"></i> Actions
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="@Url.Action("AddEdit","RecruiterCandidates")">
-                                            <i class="fa fa-file-text-o fa-fw"></i> New Candidate
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-trash-o fa-fw"></i> Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                     </div>
-                </div>
-                
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="checkAll" onclick="dataTableCheckAll('checkAll', 'IsSelected')" /></th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Company</th>
-                                    <th>JobTitle</th>
-                                    <th>LastContactDate</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr class="odd gradeX" >
-                                        <td><input type="checkbox" id="IsSelected" name="IsSelected" value="@item.Id" checked="@item.IsSelected" /></td>
-                                        <td><a href="@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))">@item.Name</a></td>
-                                        <td>@(item.Emails.Count > 0 ? item.Emails[0].EmailAddress : "")</td>
-                                        <td>@(item.Phones.Count > 0 ? item.Phones[0].PhoneNumber : "")</td>
-                                        <td>@(item.Experiences.Count > 0 ? item.Experiences[0].CompanyName : "")</td>
-                                        <td>@(item.Experiences.Count > 0 ? item.Experiences[0].JobTitle : "")</td>
-                                        <td>@(item.JobPreferences.Count > 0 ? item.JobPreferences[0].LastContactDate.ToString() : "")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <!-- /.table-responsive -->
-
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-cog fa-fw"></i> Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="@Url.Action("AddEdit", "RecruiterCandidates")">
+                                        <i class="fa fa-file-text-o fa-fw"></i> New Candidate
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#" onclick="dataTableDeleteItems('deleteForm')">
+                                        <i class="fa fa-trash-o fa-fw"></i> Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <!-- /.panel-body -->
                 </div>
+
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="checkAll" onclick="dataTableCheckAll('checkAll', 'IsSelected')" /></th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Company</th>
+                                <th>JobTitle</th>
+                                <th>LastContactDate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd gradeX">
+                                    <td><input type="checkbox" id="IsSelected" name="IsSelected" value="@item.Id" checked="@item.IsSelected" /></td>
+                                    <td><a href="@(Url.Action("AddEdit", "RecruiterCandidates", new { id = item.Id }))">@item.Name</a></td>
+                                    <td>@(item.Emails.Count > 0 ? item.Emails[0].EmailAddress : "")</td>
+                                    <td>@(item.Phones.Count > 0 ? item.Phones[0].PhoneNumber : "")</td>
+                                    <td>@(item.Experiences.Count > 0 ? item.Experiences[0].CompanyName : "")</td>
+                                    <td>@(item.Experiences.Count > 0 ? item.Experiences[0].JobTitle : "")</td>
+                                    <td>@(item.JobPreferences.Count > 0 ? item.JobPreferences[0].LastContactDate.ToString() : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
             <!-- /.panel -->
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+}
 @section scripts
 {
-        <!-- DataTables JavaScript -->
-        <script src="/Scripts/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="/Scripts/datatables-plugins/dataTables.bootstrap.min.js"></script>
-        <script src="/Scripts/datatables-responsive/dataTables.responsive.js"></script>
-        <script src="/Scripts/datatables.custom.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="/Scripts/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Scripts/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/Scripts/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/Scripts/datatables.custom.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').DataTable({
-                    responsive: true
-                });
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
             });
-        </script>
+
+        });
+    </script>
 }

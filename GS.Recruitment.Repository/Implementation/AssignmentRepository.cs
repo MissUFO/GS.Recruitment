@@ -1,6 +1,7 @@
 ﻿using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+using GS.Recruitment.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,20 +9,23 @@ using System.Xml.Linq;
 
 namespace GS.Recruitment.Repository.Implementation
 {
-	public class AssignmentRepository
+	public class AssignmentRepository : IRepository<Assignment>
     {
-		public AssignmentRepository()
-		{
-		}
+        public string ConnectionString { get; set; }
+
+        public AssignmentRepository()
+        {
+            ConnectionString = WebConfigConnectionString.RecruitmentConnection;
+        }
 
         /// <summary>
         /// Get assignment by id
         /// </summary>
-        public static Assignment Get(Guid id)
+        public Assignment Get(Guid id)
         {
             Assignment assignment = new Assignment();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Assignments_Get";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -38,11 +42,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// AddEdit assignment
         /// </summary>
         /// <param name="assignment"></param>
-        public static bool AddEdit(Assignment assignment)
+        public bool AddEdit(Assignment assignment)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Assignments_AddEdit";
                 dataManager.Add("@TaskId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignment.TaskId);
@@ -73,11 +77,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Assign all contact to the assignment
         /// </summary>
-        public static bool AssignmentContact_AddEditBulk(List<AssignmentContact> assignmentContacts)
+        public bool AssignmentContact_AddEditBulk(List<AssignmentContact> assignmentContacts)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 //create datetable and call sp
                 //dataManager.ExecuteString = "process.Assignments_AddEdit";
@@ -104,11 +108,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Assign contact to the assignment or change status
         /// </summary>
-        public static bool AssignmentContact_AddEdit(AssignmentContact assignmentContact)
+        public bool AssignmentContact_AddEdit(AssignmentContact assignmentContact)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.AssignmentContacts_AddEdit";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, assignmentContact.Id);
@@ -129,11 +133,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get assignments list by user id
         /// </summary>
-        public static List<Assignment> ListUserTo(Guid userId)
+        public List<Assignment> ListUserTo(Guid userId)
         {
             List<Assignment> assignments = new List<Assignment>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Assignments_List_UserTo";
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
@@ -149,11 +153,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get assignments list by task id
         /// </summary>
-        public static List<Assignment> ListTask(Guid taskId)
+        public List<Assignment> ListTask(Guid taskId)
         {
             List<Assignment> assignments = new List<Assignment>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Assignments_List_Task";
                 dataManager.Add("@TaskId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, taskId);
@@ -164,6 +168,28 @@ namespace GS.Recruitment.Repository.Implementation
             }
 
             return assignments;
+        }
+
+        public List<Assignment> List()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Guid id)
+        {
+            bool result = false;
+
+            using (DataManager dataManager = new DataManager(ConnectionString))
+            {
+                dataManager.ExecuteString = "process.Assignments_Delete";
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
+               
+                dataManager.ExecuteNonQuery();
+
+                result = true;
+            }
+
+            return result;
         }
     }
 }

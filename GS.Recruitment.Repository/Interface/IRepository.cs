@@ -10,6 +10,6 @@ namespace GS.Recruitment.Repository.Interface
         T Get(Guid id);
         bool AddEdit(T entity);
         List<T> List();
-        bool Delete(T entity);
+        bool Delete(Guid id);
     }
 }

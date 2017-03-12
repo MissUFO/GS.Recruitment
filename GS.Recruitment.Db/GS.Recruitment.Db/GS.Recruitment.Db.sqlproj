@@ -153,6 +153,16 @@
     <Build Include="Stored Procedures\Cities_Get.sql" />
     <Build Include="Stored Procedures\Cities_Delete.sql" />
     <Build Include="Stored Procedures\Cities_AddEdit.sql" />
+    <Build Include="Tables\Exceptions.sql" />
+    <Build Include="Stored Procedures\Tasks_Delete.sql" />
+    <Build Include="Stored Procedures\Assignments_Delete.sql" />
+    <Build Include="Stored Procedures\Notifications_Delete.sql" />
+    <Build Include="Stored Procedures\Details_Delete.sql" />
+    <Build Include="Stored Procedures\Exceptions_List.sql" />
+    <Build Include="Stored Procedures\Exceptions_Get.sql" />
+    <Build Include="Stored Procedures\Exceptions_Delete.sql" />
+    <Build Include="Stored Procedures\Exceptions_AddEdit.sql" />
+    <Build Include="Security\log.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeployment.Users.sql" />

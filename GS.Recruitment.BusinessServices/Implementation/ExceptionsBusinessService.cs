@@ -8,11 +8,11 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class ExceptionsBusinessService
     {
-        public IRepository<SysException> DataRepository { get; set; }
+        public IRepository<SysException> dataRepository { get; set; }
 
         public ExceptionsBusinessService()
         {
-            DataRepository = new ExceptionsRepository();
+            dataRepository = new ExceptionsRepository();
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public SysException Get(Guid id)
         {
-            return DataRepository.Get(id);
+            return dataRepository.Get(id);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public bool AddEdit(SysException entity)
         {
-            return DataRepository.AddEdit(entity);
+            return dataRepository.AddEdit(entity);
         }
 
         /// <summary>
@@ -36,15 +36,15 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<SysException> List()
         {
-            return DataRepository.List();
+            return dataRepository.List();
         }
 
         /// <summary>
         /// Delete 
         /// </summary>
-        public bool Delete(SysException entity)
+        public bool Delete(Guid id)
         {
-            return DataRepository.Delete(entity);
+            return dataRepository.Delete(id);
         }
 
     }

@@ -71,7 +71,7 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Not implemented
         /// </summary>
-        public bool Delete(UserSettings entity)
+        public bool Delete(Guid id)
         {
             throw new NotImplementedException();
         }

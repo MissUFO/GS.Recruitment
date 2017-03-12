@@ -1,6 +1,7 @@
 ﻿using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+using GS.Recruitment.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,21 +9,23 @@ using System.Xml.Linq;
 
 namespace GS.Recruitment.Repository.Implementation
 {
-	public class TaskRepository
+	public class TaskRepository : IRepository<Task>
     {
-		public TaskRepository()
-		{
-		}
+        public string ConnectionString { get; set; }
 
+        public TaskRepository()
+        {
+            ConnectionString = WebConfigConnectionString.RecruitmentConnection;
+        }
 
         /// <summary>
         /// Get task by taskid
         /// </summary>
-        public static Task Get(Guid id)
+        public Task Get(Guid id)
         {
             Task task = new Task();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Tasks_Get";
                 dataManager.Add("@TaskID", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -39,11 +42,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// AddEdit task
         /// </summary>
         /// <param name="task"></param>
-        public static bool AddEdit(Task task)
+        public bool AddEdit(Task task)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Tasks_AddEdit";
                 dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, task.Id);
@@ -72,11 +75,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get tasks list
         /// </summary>
-        public static List<Task> List()
+        public List<Task> List()
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Tasks_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -91,11 +94,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get tasks list by user from id
         /// </summary>
-        public static List<Task> ListUserFrom(Guid userId)
+        public List<Task> ListUserFrom(Guid userId)
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Tasks_List_UserFrom";
                 dataManager.Add("@UserFromId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
@@ -111,11 +114,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get tasks list by user to id
         /// </summary>
-        public static List<Task> ListUserTo(Guid userId)
+        public List<Task> ListUserTo(Guid userId)
         {
             List<Task> tasks = new List<Task>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "process.Tasks_List_UserTo";
                 dataManager.Add("@UserToId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, userId);
@@ -126,6 +129,23 @@ namespace GS.Recruitment.Repository.Implementation
             }
 
             return tasks;
+        }
+
+        public bool Delete(Guid id)
+        {
+            bool result = false;
+
+            using (DataManager dataManager = new DataManager(ConnectionString))
+            {
+                dataManager.ExecuteString = "process.Tasks_Delete";
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
+                
+                dataManager.ExecuteNonQuery();
+
+                result = true;
+            }
+
+            return result;
         }
     }
 }

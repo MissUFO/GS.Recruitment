@@ -1,6 +1,7 @@
 ﻿using GS.Recruitment.BusinessObjects.Implementation;
 using GS.Recruitment.Framework.SQLDataAccess;
 using GS.Recruitment.Framework.SQLDataAccess.Extensions;
+using GS.Recruitment.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,20 +9,23 @@ using System.Xml.Linq;
 
 namespace GS.Recruitment.Repository.Implementation
 {
-	public class ContactRepository
+	public class ContactRepository : IRepository<Contact>
     {
-		public ContactRepository()
-		{
-		}
+        public string ConnectionString { get; set; }
+
+        public ContactRepository()
+        {
+            ConnectionString = WebConfigConnectionString.RecruitmentConnection;
+        }
 
         /// <summary>
         /// Get contact by contactdetailid
         /// </summary>
-        public static Contact Get(Guid id)
+        public Contact Get(Guid id)
         {
             Contact contact = new Contact();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "contact.Details_Get";
                 dataManager.Add("@ContactDetailId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
@@ -38,11 +42,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// AddEdit contact
         /// </summary>
         /// <param name="user"></param>
-        public static bool AddEdit(Contact contact)
+        public bool AddEdit(Contact contact)
         {
             bool result = false;
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "contact.Details_AddEdit";
                 dataManager.Add("@ContactDetailId", SqlDbType.UniqueIdentifier, ParameterDirection.Input, contact.Id);
@@ -69,13 +73,33 @@ namespace GS.Recruitment.Repository.Implementation
         }
 
         /// <summary>
+        /// Delete contact
+        /// </summary>
+        public bool Delete(Guid Id)
+        {
+            bool result = false;
+
+            using (DataManager dataManager = new DataManager(ConnectionString))
+            {
+                dataManager.ExecuteString = "contact.Details_Delete";
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, Id);
+                
+                dataManager.ExecuteNonQuery();
+
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Get contacts list
         /// </summary>
-        public static List<Contact> List()
+        public List<Contact> List()
         {
             List<Contact> contacts = new List<Contact>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "contact.Details_List";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);
@@ -90,11 +114,11 @@ namespace GS.Recruitment.Repository.Implementation
         /// <summary>
         /// Get candidates list
         /// </summary>
-        public static List<Contact> ListCandidates()
+        public List<Contact> ListCandidates()
         {
             List<Contact> contacts = new List<Contact>();
 
-            using (DataManager dataManager = new DataManager(WebConfigConnectionString.RecruitmentConnection))
+            using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "contact.Details_List_Candidates";
                 dataManager.Add("@Xml", SqlDbType.Xml, ParameterDirection.Output);

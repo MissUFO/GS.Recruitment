@@ -31,6 +31,24 @@ namespace GS.Recruitment.Web.Controllers
         }
 
         [AuthorizedUser]
+        [HttpPost]
+        public ActionResult Delete(List<Guid> IsSelected)
+        {
+            try
+            {
+                foreach (var id in IsSelected)
+                    AssignmentSrvc.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error", ex.Message);
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        [AuthorizedUser]
         public ActionResult View(Guid id)
         {
             Assignment model = AssignmentSrvc.Get(id);

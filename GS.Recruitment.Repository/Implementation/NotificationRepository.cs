@@ -99,12 +99,12 @@ namespace GS.Recruitment.Repository.Implementation
             return List(null, false);
         }
 
-        public bool Delete(Notification entity)
+        public bool Delete(Guid id)
         {
             using (DataManager dataManager = new DataManager(ConnectionString))
             {
                 dataManager.ExecuteString = "msg.Notifications_Delete";
-                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, entity.Id);
+                dataManager.Add("@Id", SqlDbType.UniqueIdentifier, ParameterDirection.Input, id);
                 dataManager.ExecuteNonQuery();
             }
 

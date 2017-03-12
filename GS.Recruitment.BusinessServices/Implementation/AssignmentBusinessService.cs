@@ -7,35 +7,36 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
 	public class AssignmentBusinessService
     {
-		public AssignmentBusinessService()
+        protected AssignmentRepository dataRepository { get; set; }
+
+        public AssignmentBusinessService()
 		{
-		}
+            dataRepository = new AssignmentRepository();
+        }
 
         /// <summary>
         /// Get assignment by id
         /// </summary>
         public Assignment Get(Guid id)
         {
-            return AssignmentRepository.Get(id);
+            return dataRepository.Get(id);
         }
 
         /// <summary>
         /// AddEdit assignment
         /// </summary>
-        /// <param name="task"></param>
         public bool AddEdit(Assignment assignment)
         {
-            return AssignmentRepository.AddEdit(assignment);
+            return dataRepository.AddEdit(assignment);
         }
 
 
         /// <summary>
         /// AddEdit contact into assignment
         /// </summary>
-        /// <param name="task"></param>
         public bool AssignmentContact_AddEdit(AssignmentContact assignmentContact)
         {
-            return AssignmentRepository.AssignmentContact_AddEdit(assignmentContact);
+            return dataRepository.AssignmentContact_AddEdit(assignmentContact);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Assignment> ListUserTo(Guid userId)
         {
-            return AssignmentRepository.ListUserTo(userId);
+            return dataRepository.ListUserTo(userId);
         }
 
         /// <summary>
@@ -51,7 +52,15 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Assignment> ListTask(Guid taskId)
         {
-            return AssignmentRepository.ListTask(taskId);
+            return dataRepository.ListTask(taskId);
+        }
+
+        /// <summary>
+        /// Delete Assignment
+        /// </summary>
+        public bool Delete(Guid id)
+        {
+            return dataRepository.Delete(id);
         }
     }
 }

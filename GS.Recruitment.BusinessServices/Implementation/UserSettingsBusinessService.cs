@@ -6,10 +6,11 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class UserSettingsBusinessService
     {
-        protected UserSettingsRepository repo = new UserSettingsRepository();
+        protected UserSettingsRepository repo { get; set; }
 
         public UserSettingsBusinessService()
         {
+            repo = new UserSettingsRepository();
         }
 
         /// <summary>

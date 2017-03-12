@@ -7,48 +7,75 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
 	public class UserBusinessService
     {
-		public UserBusinessService()
-		{
-		}
+        protected UserRepository repo { get; set; }
 
+        public UserBusinessService()
+        {
+            repo = new UserRepository();
+        }
+
+        /// <summary>
+        /// List of users
+        /// </summary>
         public List<User> List()
         {
-            return UserRepository.List();
+            return repo.List();
         }
 
+        /// <summary>
+        /// List of Recruiters
+        /// </summary>
         public List<User> ListRecruiters()
         {
-            return UserRepository.ListRecruiters();
+            return repo.ListRecruiters();
         }
 
+        /// <summary>
+        /// Get User by id
+        /// </summary>
         public User Get(Guid id)
         {
-            return UserRepository.Get(id);
+            return repo.Get(id);
         }
 
+        /// <summary>
+        /// Check the login 
+        /// </summary>
         public User Login(string login, string password)
         {
-            return UserRepository.Login(login, password);
+            return repo.Login(login, password);
         }
 
+        /// <summary>
+        /// Add or edit user
+        /// </summary>
         public bool AddEdit(User item)
         {
-            return UserRepository.AddEdit(item);
+            return repo.AddEdit(item);
         }
 
-        public bool Delete(Guid userId)
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        public bool Delete(Guid id)
         {
-            return UserRepository.Delete(userId);
+            return repo.Delete(id);
         }
 
+        /// <summary>
+        /// Change user status (active, disabled)
+        /// </summary>
         public bool ChangeStatus(Guid id, int statusID)
         {
-            return UserRepository.ChangeStatus(id, statusID);
+            return repo.ChangeStatus(id, statusID);
         }
 
+        /// <summary>
+        /// Change user password
+        /// </summary>
         public bool ChangePassword(Guid id, string password)
         {
-            return UserRepository.ChangePassword(id, password);
+            return repo.ChangePassword(id, password);
         }
     }
 }

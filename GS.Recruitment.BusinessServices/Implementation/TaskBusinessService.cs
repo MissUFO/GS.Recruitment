@@ -7,10 +7,11 @@ namespace GS.Recruitment.BusinessServices.Implementation
 {
     public class TaskBusinessService
     {
-        protected NotificationBusinessService notification { get; set; }
+        protected TaskRepository dataRepository { get; set; }
+
         public TaskBusinessService()
         {
-            notification = new NotificationBusinessService();
+            dataRepository = new TaskRepository();
         }
 
         /// <summary>
@@ -18,7 +19,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public Task Get(Guid id)
         {
-            return TaskRepository.Get(id);
+            return dataRepository.Get(id);
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// <param name="task"></param>
         public bool AddEdit(Task task)
         {
-            return TaskRepository.AddEdit(task);
+            return dataRepository.AddEdit(task);
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Task> List()
         {
-            return TaskRepository.List();
+            return dataRepository.List();
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Task> ListUserFrom(Guid userId)
         {
-            return TaskRepository.ListUserFrom(userId);
+            return dataRepository.ListUserFrom(userId);
         }
 
         /// <summary>
@@ -51,7 +52,15 @@ namespace GS.Recruitment.BusinessServices.Implementation
         /// </summary>
         public List<Task> ListUserTo(Guid userId)
         {
-            return TaskRepository.ListUserTo(userId);
+            return dataRepository.ListUserTo(userId);
+        }
+
+        /// <summary>
+        /// Delete task
+        /// </summary>
+        public bool Delete(Guid id)
+        {
+            return dataRepository.Delete(id);
         }
 
     }
